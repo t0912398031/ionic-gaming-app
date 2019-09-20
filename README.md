@@ -1,4 +1,4 @@
-# FinalProjectGopats - INFO6150 - Spring 2019
+# Gaming Republic
 
 This is a budget tracker web app, developed by Chung-Yang Li. 
 
