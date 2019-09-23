@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>901598795613-p5tlkvidrdpbq8tt2knfqmang2lvj1op.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.901598795613-p5tlkvidrdpbq8tt2knfqmang2lvj1op</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCV8xrgE7PmwR8Xk31Ey2F_HldfAvwJqKc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>901598795613</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>GamerRepublic</string>
+	<key>PROJECT_ID</key>
+	<string>gamer-republic-253301</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gamer-republic-253301.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:901598795613:ios:c1ec9381388bb05266bab4</string>
+	<key>DATABASE_URL</key>
+	<string>https://gamer-republic-253301.firebaseio.com</string>
+</dict>
+</plist>

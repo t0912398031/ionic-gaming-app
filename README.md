@@ -2,28 +2,25 @@
 
 This is a budget tracker web app, developed by Chung-Yang Li. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.7.
+This project was generated with ionic v4.7.3
+
+### Start server
+
+1. Run `npm i` or `npm install` to install the dependencies.
+2. Run `ionic serve` to start the server at `http://localhost:8100/`.
 
 
-npm init
-npm install express
+## Emulate an Ionic project on a simulator/emulator
 
-npm install -g @angular/cli
+ionic cordova emulate [<platform>] [options]
 
-### Start users server
 
-1. Go to /root/server and run `npm i` or `npm install` to install the dependencies.
-2. Run `npm start` to start the server at `http://localhost:3000/`.
+ionic cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.901598795613-p5tlkvidrdpbq8tt2knfqmang2lvj1op --variable WEB_APPLICATION_CLIENT_ID=901598795613-cgdalt5l4sh0nsjoka1gn1f5kjnmohok.apps.googleusercontent.com
 
-### Start bank server
 
-1. Go to /root/server_bank and run `npm i` or `npm install` to install the dependencies.
-2. Run `npm start` to start the bank server at `http://localhost:7000/`.
 
-### Start client
 
-1. Go to /root and run `npm i` or `npm install` to install the dependencies. 
-2. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
 
 ## Code scaffolding
 

@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>profile</ion-title>
+    <ion-button color="primary" (click) ="logout()">logout</ion-button>
+
+    <ion-button color="primary" (click) ="linkFb()">linkFb</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+{{user | json}}
+</ion-content>
