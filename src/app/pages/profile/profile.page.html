@@ -14,8 +14,8 @@
 <ion-content>
 {{user | json}}
 
-<ion-button color="primary" (click) ="update()">update</ion-button>
-<input [(ngModel)]="data" >
+<ion-button color="primary" (click) ="testupdate()">testupdate</ion-button>
+<input placeholder="{{item.last}}" [(ngModel)]="data" >
 {{(item | async)?.last}}
 {{item.born}}
 </ion-content>

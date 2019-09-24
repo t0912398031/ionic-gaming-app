@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-export interface User {
+// export interface User {
+  export interface User {
   first: string,
   last: string,
   middle: string,
@@ -119,7 +120,23 @@ export class ProfilePage implements OnInit {
   }
 
 
-  update(){
-    this.itemDoc.update(this.data);
+  testupdate(){
+    
+    // this.item = {
+    //   first: this.item,
+    //   last: string,
+    //   middle: string,
+    //   born: number
+    // }
+    this.itemDoc.update({
+      last: this.data
+    });
+    
+    // this.update()
+  }
+
+  // Method
+  update(item: User){
+    this.itemDoc.update(item);
   }
 }
