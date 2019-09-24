@@ -4,9 +4,18 @@
     <ion-button color="primary" (click) ="logout()">logout</ion-button>
 
     <ion-button color="primary" (click) ="linkFb()">linkFb</ion-button>
+
+    <ion-button color="primary" (click) ="get()">get</ion-button>
+
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 {{user | json}}
+
+<ion-button color="primary" (click) ="update()">update</ion-button>
+<input [(ngModel)]="data" >
+{{(item | async)?.last}}
+{{item.born}}
 </ion-content>

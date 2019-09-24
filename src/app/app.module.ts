@@ -14,6 +14,11 @@ import { AngularFireModule } from '@angular/fire';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from '../environments/environment';
 
+// import { HttpModule } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +30,9 @@ import { environment } from '../environments/environment';
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+
+    HttpClientModule,
+    // HttpModule,
     
   ],
   providers: [
@@ -33,7 +41,8 @@ import { environment } from '../environments/environment';
     
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 
-    GooglePlus
+    GooglePlus,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })

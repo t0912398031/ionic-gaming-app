@@ -1,7 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+
 import * as firebase from "firebase/app";
+
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+
+export interface User {
+  first: string,
+  last: string,
+  middle: string,
+  born: number
+}
 
 @Component({
   selector: 'app-profile',
@@ -11,10 +24,21 @@ import * as firebase from "firebase/app";
 export class ProfilePage implements OnInit {
   user: any = {}
   u: any
+  data: any;
+
+  private itemDoc: AngularFirestoreDocument<User>;
+  item: Observable<User>;
   constructor(
     private router: Router,
-    private fireAuth: AngularFireAuth
-  ) { }
+    private fireAuth: AngularFireAuth,
+
+    private http: HttpClient,
+    private afs: AngularFirestore
+  ) { 
+
+    this.itemDoc = afs.doc<User>('users/aturing');
+    this.item = this.itemDoc.valueChanges();
+  }
 
   ngOnInit() {
     console.log(firebase.auth().currentUser);
@@ -76,4 +100,26 @@ export class ProfilePage implements OnInit {
     });
   }
   
+
+
+  get() {
+    var ob = this.getUsers();
+    ob.subscribe((data: any) => {
+      if (data.length == 0) {
+        alert("Wrong credentials!");
+      }
+      else {
+        console.log(data);
+      }
+    })
+  }
+
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>('https://gamer-republic-253301.firebaseio.com/users/aturing.json');
+  }
+
+
+  update(){
+    this.itemDoc.update(this.data);
+  }
 }

@@ -64,6 +64,10 @@ export class AppComponent {
 
 
   initializeApp() {
+
+   
+
+
     this.platform.ready().then(() => {
       // if (this.platform.is('cordova')) { 
       //   // make your native API calls 
