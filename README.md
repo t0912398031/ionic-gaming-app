@@ -17,7 +17,7 @@ ionic cordova emulate [<platform>] [options]
 
 ionic cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CLIENT_ID=com.googleusercontent.apps.901598795613-p5tlkvidrdpbq8tt2knfqmang2lvj1op --variable WEB_APPLICATION_CLIENT_ID=901598795613-cgdalt5l4sh0nsjoka1gn1f5kjnmohok.apps.googleusercontent.com
 
-
+set GOOGLE_APPLICATION_CREDENTIALS=D:\download\gamer-republic-253301-firebase-adminsdk-qzb71-c740888ae9.json
 
 
 

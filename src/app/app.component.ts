@@ -70,10 +70,9 @@ export class AppComponent {
       // } else { 
       //   // fallback to browser APIs 
       // }
-      admin.initializeApp({
-        credential: admin.credential.applicationDefault(),
-        databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-      });
+
+   
+      // firebaseConfig
       firebase.initializeApp(environment.firebaseConfig);
       firebase.auth().onAuthStateChanged(user => {
         if (user) {

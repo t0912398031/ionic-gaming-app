@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~8.1.2",
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
+    "@google-cloud/firestore": "^2.3.0",
+    "@google-cloud/storage": "^3.3.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/firebase": "^5.14.0",
     "@ionic-native/firebase-authentication": "^5.14.0",
@@ -46,6 +48,7 @@
     "firebase": "^6.6.2",
     "firebase-admin": "^8.6.0",
     "firebaseui": "^4.2.0",
+    "googleapis": "^43.0.0",
     "rxjs": "~6.5.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
