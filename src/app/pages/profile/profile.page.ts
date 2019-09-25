@@ -42,12 +42,11 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    console.log(firebase.auth().currentUser);
-    // console.log(this.fireAuth.auth.currentUser);
-
 
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
+        console.log(firebase.auth().currentUser);
+    console.log(this.fireAuth.auth.currentUser);
         this.u = user;
         // console.log(this.u);
         this.user = {
@@ -74,13 +73,13 @@ export class ProfilePage implements OnInit {
 
   logout() {
     this.fireAuth.auth.signOut().then(() => {
-      this.router.navigate(["/home"]);
+      this.router.navigate(["/login"]);
     })
   }
 
   linkFb(){
     // Creates the provider object.
-    var provider = new firebase.auth.GoogleAuthProvider();
+    var provider = new firebase.auth.FacebookAuthProvider();
     // You can add additional scopes to the provider:
     // provider.addScope('email');
     // provider.addScope('user_friends');
@@ -88,9 +87,9 @@ export class ProfilePage implements OnInit {
     // auth.currentUser.linkWithRedirect(provider);
     // Link with popup:
 
-    firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
-    // this.fireAuth.auth.currentUser.linkWithPopup(provider).then(function(result) {
-
+    // firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
+    this.fireAuth.auth.currentUser.linkWithPopup(provider).then(function(result) {
+      console.log("successfully linked");
       // The firebase.User instance:
       var user = result.user;
       // The Facebook firebase.auth.AuthCredential containing the Facebook
@@ -99,6 +98,19 @@ export class ProfilePage implements OnInit {
     }, function(error) {
       // An error happened.
     });
+
+    // firebase.auth().getRedirectResult().then(function(result) {
+    //   if (result.credential) {
+        
+    //     // Accounts successfully linked.
+    //     var credential = result.credential;
+    //     var user = result.user;
+    //     // ...
+    //   }
+    // }).catch(function(error) {
+    //   // Handle Errors here.
+    //   // ...
+    // });
   }
   
 
@@ -122,12 +134,6 @@ export class ProfilePage implements OnInit {
 
   testupdate(){
     
-    // this.item = {
-    //   first: this.item,
-    //   last: string,
-    //   middle: string,
-    //   born: number
-    // }
     this.itemDoc.update({
       last: this.data
     });

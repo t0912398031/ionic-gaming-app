@@ -5,20 +5,20 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { environment } from '../environments/environment';
-import { FirebaseConfig } from '@ionic-native/firebase-config/ngx';
+// import { FirebaseConfig } from '@ionic-native/firebase-config/ngx';
 
-import * as admin from 'firebase-admin';
+// import * as admin from 'firebase-admin';
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 import * as firebase from "firebase/app";
 
 // Add the Firebase services that you want to use
-import "firebase/auth";
-import "firebase/firestore";
+// import "firebase/auth";
+// import "firebase/firestore";
 
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/auth';
+// import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +36,16 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'profile',
+      url: '/profile',
+      icon: 'contact'
+    },
+    {
+      title: 'settings',
+      url: '/settings',
+      icon: 'settings'
     }
   ];
 
@@ -64,10 +74,6 @@ export class AppComponent {
 
 
   initializeApp() {
-
-   
-
-
     this.platform.ready().then(() => {
       // if (this.platform.is('cordova')) { 
       //   // make your native API calls 
@@ -104,6 +110,9 @@ export class AppComponent {
       //   }
       // })
       this.statusBar.styleDefault();
+
+      // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+      // document.body.classList.toggle('dark', false);
     });
   }
 }

@@ -1,17 +1,22 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
     <ion-title>profile</ion-title>
-    <ion-button color="primary" (click) ="logout()">logout</ion-button>
-
-    <ion-button color="primary" (click) ="linkFb()">linkFb</ion-button>
-
-    <ion-button color="primary" (click) ="get()">get</ion-button>
+    
 
     
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-button color="primary" (click) ="logout()">logout</ion-button>
+
+    <ion-button color="primary" (click) ="linkFb()">linkFb</ion-button>
+
+    <ion-button color="primary" (click) ="get()">get</ion-button>
 {{user | json}}
 
 <ion-button color="primary" (click) ="testupdate()">testupdate</ion-button>

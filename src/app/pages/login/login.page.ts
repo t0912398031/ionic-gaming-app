@@ -9,9 +9,6 @@ import * as firebase from "firebase/app";
 })
 export class LoginPage implements OnInit {
 
-  // profile: any;
-  // id_token: any;
-  
   constructor() { }
 
   ngOnInit() {
@@ -25,7 +22,6 @@ export class LoginPage implements OnInit {
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
     
-
     // firebase.auth().languageCode = 'pt';
 
     // To apply the default browser preference instead of explicitly setting it.
@@ -91,7 +87,29 @@ export class LoginPage implements OnInit {
       // ...
     });
   }
-  // ionicfirebase(){
+  
+
+  firebaseCordova(){
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithRedirect(provider).then(function() {
+      return firebase.auth().getRedirectResult();
+    }).then(function(result) {
+      // This gives you a Google Access Token.
+      // You can use it to access the Google API.
+      var token = (<any>result).credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
+  }
+
+
+// ionicfirebase(){
   //   this.firebase.getToken()
   // .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
   // .catch(error => console.error('Error getting token', error));
@@ -122,23 +140,5 @@ export class LoginPage implements OnInit {
   // }
 
 
-
-  // cordova(){
-  //   var provider = new firebase.auth.GoogleAuthProvider();
-
-  //   firebase.auth().signInWithRedirect(provider).then(function() {
-  //     return firebase.auth().getRedirectResult();
-  //   }).then(function(result) {
-  //     // This gives you a Google Access Token.
-  //     // You can use it to access the Google API.
-  //     var token = (<any>result).credential.accessToken;
-  //     // The signed-in user info.
-  //     var user = result.user;
-  //     // ...
-  //   }).catch(function(error) {
-  //     // Handle Errors here.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //   });
-  // }
+  
 }
