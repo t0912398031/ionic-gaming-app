@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
-
+import { SharingService } from './service/sharing.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -42,7 +42,9 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
 
     GooglePlus,
-    AngularFirestore
+    AngularFirestore,
+
+    SharingService
   ],
   bootstrap: [AppComponent]
 })
