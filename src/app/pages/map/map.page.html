@@ -6,4 +6,37 @@
 
 <ion-content>
   <ion-button color="primary" (click) ="locate()">locate</ion-button>
+  <agm-map [latitude]='latitude' [longitude]='longitude' [mapTypeId]='mapType' [zoom]="13">
+
+
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [label]="label">
+      <agm-info-window>
+        <strong>InfoWindow content</strong>
+      </agm-info-window>
+    </agm-marker>
+
+  
+  <agm-marker *ngFor="let marker of filteredMarkers" [latitude]="marker.latitude" [longitude]="marker.longitude" >
+      <agm-info-window [disableAutoPan]="true">
+          <a routerLink="/">Go there</a>
+      </agm-info-window>
+  </agm-marker>
+  </agm-map>
+  
+
+
+  <!-- <agm-marker 
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+      
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+    
+  </agm-marker> -->
 </ion-content>

@@ -102,7 +102,8 @@ export class AppComponent {
         }
         else {
           console.log("no user found");
-          this.router.navigate(["/login"]);
+          // this.router.navigate(["/login"]);
+          this.router.navigate(["/test"]);
           this.splashScreen.hide();
         }
       })

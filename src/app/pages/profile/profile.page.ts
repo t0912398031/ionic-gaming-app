@@ -11,16 +11,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { SharingService } from '../../service/sharing.service';
+import { User } from 'src/app/model/user';
 
 
-// export interface User {
-  export interface User {
-  first: string,
-  last: string,
-  middle: string,
-  born: number,
-  googleIdToken: string
-}
+//   export interface User {
+//   first: string,
+//   last: string,
+//   middle: string,
+//   born: number,
+//   googleIdToken: string
+// }
 
 @Component({
   selector: 'app-profile',
@@ -146,6 +146,7 @@ export class ProfilePage implements OnInit {
           emailVerified: user.emailVerified,
           refreshToken: user.refreshToken
         }
+        this.sharingService.save(this.user);
 
       }
       else {
@@ -178,7 +179,8 @@ export class ProfilePage implements OnInit {
 
 
         self.itemDoc.update({
-          googleIdToken: idToken
+          googleIdToken: idToken,
+          location: new firebase.firestore.GeoPoint(42.427292, -71.074217)
         });
 
       }
@@ -256,6 +258,7 @@ export class ProfilePage implements OnInit {
         console.log(data);
       }
     })
+    
   }
 
   getUsers(): Observable<any[]> {
