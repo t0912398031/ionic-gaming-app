@@ -12,12 +12,14 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 
 import { SharingService } from '../../service/sharing.service';
 
+
 // export interface User {
   export interface User {
   first: string,
   last: string,
   middle: string,
-  born: number
+  born: number,
+  googleIdToken: string
 }
 
 @Component({
@@ -30,6 +32,15 @@ export class ProfilePage implements OnInit {
   u: any
   data: any;
 
+  googleLinked = false;
+  fbLinked = false;
+
+
+  latitude = -28.68352;
+  longitude = -147.20785;
+  mapType = 'roadmap';
+
+  
   private itemDoc: AngularFirestoreDocument<User>;
   item: Observable<User>;
   constructor(
@@ -53,7 +64,7 @@ export class ProfilePage implements OnInit {
 
 
   getChanel(): Observable<any> {
-    var apikey = environment.firebaseConfig.apiKey;
+    var apikey = environment.youtubeAPIkey;
    
     const reqHeader = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -63,19 +74,9 @@ export class ProfilePage implements OnInit {
     { headers: reqHeader }   
     );
   }
-  testHttp(){
-    // var ob = this.getChanel();
-    // ob.subscribe((data: any) => {
-    //   if (data.length == 0) {
-    //     alert("Wrong credentials!");
-    //   }
-    //   else {
-    //     console.log(data);
-    //   }
-    // })
 
-    
-    var apikey = environment.firebaseConfig.apiKey;
+  testHttp(){  
+    var apikey = environment.youtubeAPIkey;
    
     const reqHeader = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -97,30 +98,6 @@ export class ProfilePage implements OnInit {
           console.log("The POST observable is now completed.");
       });
 
-
-    // 
-    // this.http.post("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&mine=true&key=" + apikey + "HTTP/1.1",
-    // {
-    //     "Authorization": "Bearer " + "ya29.GlyQB1R9oSywtP29XCVg3rLgisIH32Yh5muFIEETcIDcWjv_mJQ1aqoeFYiWtuXPOVXVG2Kg2mKpL8yEOasofHErM6YFMCluWuMv9M1YYh9C_cy8TCF8C5VEz358Yg"
-    //     //  this.sharingService.fetchToken()
-    //     // "courseListIcon": "...",
-    //     // "description": "TEST",
-    //     // "iconUrl": "..",
-    //     // "longDescription": "...",
-    //     // "url": "new-url"
-    // })
-    // .subscribe(
-    //     (val) => {
-    //         console.log("POST call successful value returned in body", 
-    //                     val);
-    //     },
-    //     response => {
-    //         console.log("POST call in error", response);
-    //     },
-    //     () => {
-    //         console.log("The POST observable is now completed.");
-    //     });
-
   }
 
 
@@ -130,11 +107,20 @@ export class ProfilePage implements OnInit {
     // this.sharingService.fetchToken().then((e) => {
     //   console.log(e);
     // })
-
+    let self = this;
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        // console.log(user.providerData)
-        // console.log(user.metadata)
+        
+
+        user.providerData.forEach((e)=>{
+          if (e.providerId=="google.com") {
+            self.googleLinked = true;
+          } 
+          if (e.providerId=="facebook.com") {
+            self.fbLinked = true;
+          } 
+        })
+        
 
     //     console.log(firebase.auth().currentUser);
     // console.log(this.fireAuth.auth.currentUser);
@@ -146,7 +132,7 @@ export class ProfilePage implements OnInit {
     //   console.log("  Email: " + profile.email);
     //   console.log("  Photo URL: " + profile.photoURL);
     // });
-        this.u = user;
+     
         // console.log(this.u);
         this.user = {
           uid: user.uid,
@@ -171,23 +157,36 @@ export class ProfilePage implements OnInit {
   }
 
   getRedirectGoogle(){
+    let self = this;
     firebase.auth().getRedirectResult()
     // firebase.auth().signInWithPopup(provider)
     .then(function(result) {
       if (result.credential) {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = (<any>result).credential.accessToken;
+        var idToken = (<any>result).credential.idToken;
         // ...
 
-        console.log(token);
-        this.sharingService.saveToken(token);
 
-        this.itemDoc.update({
-          accessToken: token
+        // console.log("result: " + JSON.stringify(result));
+
+        // console.log("token: "+token);
+        // console.log("idtoken: "+idToken);
+
+
+        // this.sharingService.saveToken(token);
+
+
+        self.itemDoc.update({
+          googleIdToken: idToken
         });
+
       }
       // The signed-in user info.
       var user = result.user;
+      
+
+      
       // console.log(user);
     }).catch(function(error) {
       // Handle Errors here.
@@ -264,17 +263,11 @@ export class ProfilePage implements OnInit {
   }
 
 
-  testupdate(){
-    
+  testupdate(){    
     this.itemDoc.update({
       last: this.data
     });
-    
-    // this.update()
+
   }
 
-  // Method
-  update(item: User){
-    this.itemDoc.update(item);
-  }
 }

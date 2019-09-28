@@ -21,6 +21,9 @@ set GOOGLE_APPLICATION_CREDENTIALS=D:\download\gamer-republic-253301-firebase-ad
 
 
 
+## Cordova live-reload
+
+ionic cordova run browser -l
 
 ## Code scaffolding
 

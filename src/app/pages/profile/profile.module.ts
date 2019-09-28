@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { ProfilePage } from './profile.page';
 
+import { AgmCoreModule } from '@agm/core';
+
 const routes: Routes = [
   {
     path: '',
@@ -19,7 +21,15 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94'
+      /* apiKey is required, unless you are a 
+      premium customer, in which case you can 
+      use clientId 
+      */
+    })
   ],
   declarations: [ProfilePage]
 })

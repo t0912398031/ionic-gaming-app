@@ -20,6 +20,9 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 
 import { SharingService } from './service/sharing.service';
 
+// import { AgmCoreModule } from '@agm/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,6 +36,13 @@ import { SharingService } from './service/sharing.service';
 
     HttpClientModule,
     // HttpModule,
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94'
+    //   /* apiKey is required, unless you are a 
+    //   premium customer, in which case you can 
+    //   use clientId 
+    //   */
+    // })
     
   ],
   providers: [
@@ -44,7 +54,8 @@ import { SharingService } from './service/sharing.service';
     GooglePlus,
     AngularFirestore,
 
-    SharingService
+    SharingService,
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })

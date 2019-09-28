@@ -19,7 +19,9 @@ export const environment = {
     storageBucket: "gamer-republic-253301.appspot.com",
     messagingSenderId: "901598795613",
     appId: "1:901598795613:web:5d48cf80f9526cc766bab4"
-  }
+  },
+  youtubeAPIkey: "AIzaSyDIHGXhq-WTdJV9z4S-HvSNsfyE_0d7Sh4",
+  mapAPIkey: "AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94"
 };
 
 /*

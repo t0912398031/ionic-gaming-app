@@ -46,6 +46,16 @@ export class AppComponent {
       title: 'settings',
       url: '/settings',
       icon: 'settings'
+    },
+    {
+      title: 'map',
+      url: '/map',
+      icon: 'locate'
+    },
+    {
+      title: 'test',
+      url: '/test',
+      icon: 'settings'
     }
   ];
 

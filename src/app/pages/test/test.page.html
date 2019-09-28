@@ -1,10 +1,27 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>test</ion-title>
-    <ion-button color="primary" (click) ="login()">login</ion-button>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-button color="primary" (click) ="login()">login</ion-button>
+
   {{test}}}
-</ion-content>
+
+
+  <div id="map"></div>
+  <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+    </script>
+  <!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> -->
+    
+</ion-conten
+t>
