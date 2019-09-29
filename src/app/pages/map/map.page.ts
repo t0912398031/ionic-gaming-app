@@ -5,6 +5,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapsAPILoader } from '@agm/core';
 import { SharingService } from 'src/app/service/sharing.service';
 import { User } from 'src/app/model/user';
+
+// import { LocationTracker } from '../../providers/location-tracker';
 declare var google;
 
 
@@ -18,7 +20,8 @@ export class MapPage implements OnInit {
   constructor(
     private geolocation: Geolocation,
     private mapsAPILoader: MapsAPILoader,
-    private sharingService: SharingService
+    private sharingService: SharingService,
+    // public locationTracker: LocationTracker
     ) { }
   
   user: User;
@@ -27,10 +30,25 @@ export class MapPage implements OnInit {
   longitude = -71.06760539999999;
   mapType = 'roadmap';
   label = "";
-
+  iconUrl = {
+    url: './assets/icon/favicon.png',
+    scaledSize: {
+        width: 40,
+        height: 40
+    }
+  }
 
   markers = [];
   filteredMarkers = [];
+
+
+  getLocations(): Array<{ latitude: number, longitude: number, iconUrl: string }> {
+    return [
+      { 'latitude': 42.395147, 'longitude': -71.066963, 'iconUrl': './assets/icon/Leagueicon.png'},
+      { 'latitude': 42.395147, 'longitude': -71.067963, 'iconUrl': './assets/icon/Leagueicon.png'},
+      { 'latitude': 42.395147, 'longitude': -71.068963, 'iconUrl': './assets/icon/Leagueicon.png'},
+    ];
+  }
 
   ngOnInit() {
     this.user = this.sharingService.fetch();
@@ -61,8 +79,8 @@ export class MapPage implements OnInit {
       // resp.coords.longitude
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;
-      console.log(resp.coords.latitude)
-      console.log(resp.coords.longitude)
+      // console.log(resp.coords.latitude)
+      // console.log(resp.coords.longitude)
      }).catch((error) => {
        console.log('Error getting location', error);
      });
@@ -75,12 +93,18 @@ export class MapPage implements OnInit {
      });
   }
 
-  getLocations(): Array<{ latitude: number, longitude: number }> {
-    return [
-      { 'latitude': 42.395147, 'longitude': -71.066963 },
-      { 'latitude': 42.395147, 'longitude': -71.067963 },
-      { 'latitude': 42.395147, 'longitude': -71.068963 },
-    ];
+  
+
+
+
+
+
+  start(){
+    // this.locationTracker.startTracking();
+  }
+
+  stop(){
+    // this.locationTracker.stopTracking();
   }
   
 }

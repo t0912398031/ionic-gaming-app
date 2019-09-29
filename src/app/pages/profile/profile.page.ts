@@ -160,7 +160,6 @@ export class ProfilePage implements OnInit {
   getRedirectGoogle(){
     let self = this;
     firebase.auth().getRedirectResult()
-    // firebase.auth().signInWithPopup(provider)
     .then(function(result) {
       if (result.credential) {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -270,7 +269,24 @@ export class ProfilePage implements OnInit {
     this.itemDoc.update({
       last: this.data
     });
+    // console.log(JSON.stringify(this.itemDoc));
 
+    
+  let getDoc = this.itemDoc.get().toPromise()
+  .then(doc => {
+    if (!doc.exists) {
+      console.log('No such document!');
+    } else {
+      console.log('Document data:', doc.data());
+    }
+  })
+  .catch(err => {
+    console.log('Error getting document', err);
+  });
+
+// collection Usage
+    // let data = item.payload.doc.data();
+    //     const commentId = item.payload.doc.id;
   }
 
 }

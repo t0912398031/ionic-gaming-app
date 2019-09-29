@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "<YOUR_TEAM_ID_FROM_MEMBER_CENTER>.GamerRepublic",
+        "appID": "<YOUR_TEAM_ID_FROM_MEMBER_CENTER>.com.lipang.GamerRepublic",
         "paths": [
           "/__/auth/callback"
         ]

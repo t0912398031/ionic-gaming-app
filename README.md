@@ -28,6 +28,11 @@ set GOOGLE_APPLICATION_CREDENTIALS=D:\download\gamer-republic-253301-firebase-ad
 
 ionic cordova run browser -l
 
+## Cordova remove
+
+cordova plugin list
+
+cordova plugin remove
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.

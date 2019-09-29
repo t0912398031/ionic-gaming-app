@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'test', loadChildren: './pages/test/test.module#TestPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
-  { path: 'map', loadChildren: './pages/map/map.module#MapPageModule' }
+  { path: 'map', loadChildren: './pages/map/map.module#MapPageModule' },
+  { path: 'editprofile', loadChildren: './pages/profile/editprofile/editprofile.module#EditprofilePageModule' }
 ];
 
 @NgModule({

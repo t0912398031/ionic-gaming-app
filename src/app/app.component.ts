@@ -6,16 +6,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { environment } from '../environments/environment';
 // import { FirebaseConfig } from '@ionic-native/firebase-config/ngx';
-
+import { LocationTracker } from '../providers/location-tracker';
 // import * as admin from 'firebase-admin';
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
 import * as firebase from "firebase/app";
+// import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 
-// Add the Firebase services that you want to use
-// import "firebase/auth";
-// import "firebase/firestore";
 
 import { Router } from '@angular/router';
 // import { AngularFireAuth } from '@angular/fire/auth';
@@ -65,7 +63,10 @@ export class AppComponent {
     private statusBar: StatusBar,
     // private firebaseConfig: FirebaseConfig
     private router: Router,
+    // private location,
     // private fireAuth: AngularFireAuth
+    private locationTracker: LocationTracker
+    // private backgroundGeolocation: BackgroundGeolocation
   ) {
     this.initializeApp();
   }
@@ -91,6 +92,8 @@ export class AppComponent {
       //   // fallback to browser APIs 
       // }
 
+      
+      // this.locationTracker.startTracking();
    
       // firebaseConfig
       firebase.initializeApp(environment.firebaseConfig);

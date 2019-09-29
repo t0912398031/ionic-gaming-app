@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>editprofile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header>
+        <ion-label>Name</ion-label>
+      </ion-list-header>
+  
+      <ion-item>
+        <ion-label>Biff</ion-label>
+        <ion-radio slot="start" value="biff" checked></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Griff</ion-label>
+        <ion-radio slot="start" value="griff"></ion-radio>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label>Buford</ion-label>
+        <ion-radio slot="start" value="buford"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+123
+  <ion-list>
+      <ion-list-header>
+        <ion-label>Name</ion-label>
+      </ion-list-header>
+
+      <ion-item>
+        <ion-label>Griff</ion-label>
+        <!-- <ion-radio slot="start" value="griff"></ion-radio> -->
+        <ion-checkbox slot="start"></ion-checkbox>
+      </ion-item>
+    <!-- Default Checkbox -->
+<ion-checkbox></ion-checkbox>
+
+<!-- Disabled Checkbox -->
+<ion-checkbox disabled="true"></ion-checkbox>
+
+<!-- Checked Checkbox -->
+<ion-checkbox checked="true"></ion-checkbox>
+
+<!-- Checkbox Colors -->
+<ion-checkbox color="primary"></ion-checkbox>
+<ion-checkbox color="secondary"></ion-checkbox>
+<ion-checkbox color="danger"></ion-checkbox>
+<ion-checkbox color="light"></ion-checkbox>
+<ion-checkbox color="dark"></ion-checkbox>
+
+    </ion-list>
+
+<!-- Checkboxes in a List -->
+<!-- <ion-list>
+  <ion-item *ngFor="let entry of form">
+    <ion-label>{{entry.val}}</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+  </ion-item>
+</ion-list> -->
+
+</ion-content>

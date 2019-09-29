@@ -22,6 +22,8 @@ import { SharingService } from './service/sharing.service';
 
 // import { AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocationTracker } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -55,7 +57,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     AngularFirestore,
 
     SharingService,
-    Geolocation
+    Geolocation,
+    LocationTracker,
+    BackgroundGeolocation
   ],
   bootstrap: [AppComponent]
 })

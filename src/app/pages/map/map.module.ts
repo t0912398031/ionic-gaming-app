@@ -24,12 +24,12 @@ const routes: Routes = [
     RouterModule.forChild(routes),
 
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94',
       /* apiKey is required, unless you are a 
       premium customer, in which case you can 
       use clientId 
       */
-     libraries: ['geometry']
+      apiKey: 'AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94',  
+      libraries: ['geometry']
     })
   ],
   declarations: [MapPage]

@@ -5,18 +5,27 @@
 </ion-header>
 
 <ion-content>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94&callback=initMap"
+    async defer></script> -->
   <ion-button color="primary" (click) ="locate()">locate</ion-button>
   <agm-map [latitude]='latitude' [longitude]='longitude' [mapTypeId]='mapType' [zoom]="13">
 
 
-    <agm-marker [latitude]="latitude" [longitude]="longitude" [label]="label">
+    <agm-marker [latitude]="latitude" [longitude]="longitude" [label]="label" [iconUrl] ="iconUrl">
       <agm-info-window>
         <strong>InfoWindow content</strong>
       </agm-info-window>
     </agm-marker>
 
   
-  <agm-marker *ngFor="let marker of filteredMarkers" [latitude]="marker.latitude" [longitude]="marker.longitude" >
+  <agm-marker *ngFor="let marker of filteredMarkers" [latitude]="marker.latitude" [longitude]="marker.longitude" 
+  [iconUrl]="{
+    url: marker.iconUrl,
+    scaledSize: {
+        width: 40,
+        height: 40
+    }
+  }">
       <agm-info-window [disableAutoPan]="true">
           <a routerLink="/">Go there</a>
       </agm-info-window>
@@ -39,4 +48,10 @@
     </agm-info-window>
     
   </agm-marker> -->
+
+
+  <!-- <h3>Current Latitude: {{locationTracker.lat}}</h3>
+  <h3>Current Longitude: {{locationTracker.lng}}</h3>
+  <button ion-button full primary (click)="start()">Start Tracking</button>
+  <button ion-button full primary (click)="stop()">Stop Tracking</button> -->
 </ion-content>
