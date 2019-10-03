@@ -16,12 +16,13 @@ import * as firebase from "firebase/app";
 
 
 import { Router } from '@angular/router';
+import { SharingService } from './service/sharing.service';
 // import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
   public appPages = [
@@ -57,12 +58,15 @@ export class AppComponent {
     }
   ];
 
+  public u = false;
+  
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     // private firebaseConfig: FirebaseConfig
     private router: Router,
+    private sharingService: SharingService,
     // private location,
     // private fireAuth: AngularFireAuth
     private locationTracker: LocationTracker
@@ -99,14 +103,40 @@ export class AppComponent {
       firebase.initializeApp(environment.firebaseConfig);
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
+          this.u = true;
+
           console.log("user exist");
           this.router.navigate(["/profile"]);
+          // this.locationTracker.startTrackingWeb().subscribe(data=>{
+          //   console.log(data);
+            
+          // })
+          this.locationTracker.startTrackingWeb()
+          // this.locationTracker.getPosition().subscribe(data=>{
+          //   console.log(data);
+            
+          // })
+          let currentUser = {
+            uid: user.uid,
+            phoneNumber: user.phoneNumber,
+            photoURL: user.photoURL,
+            creationTime: user.metadata.creationTime,
+            lastSignInTime: user.metadata.lastSignInTime,
+            isAnonymous: user.isAnonymous,
+            email: user.email,
+            displayName: user.displayName,
+            emailVerified: user.emailVerified,
+            refreshToken: user.refreshToken
+          }
+          this.sharingService.save(currentUser);
+
+
           this.splashScreen.hide();
         }
         else {
           console.log("no user found");
-          // this.router.navigate(["/login"]);
-          this.router.navigate(["/test"]);
+          this.router.navigate(["/login"]);
+          // this.router.navigate(["/test"]);
           this.splashScreen.hide();
         }
       })

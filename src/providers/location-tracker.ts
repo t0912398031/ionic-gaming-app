@@ -13,6 +13,8 @@ export class LocationTracker {
   public watch: any;    
   public lat: number = 0;
   public lng: number = 0;
+  public latitude;
+  public longitude;
 
   gps_update_link: string = "replace_with_your_http_request_link";
   constructor(
@@ -140,4 +142,31 @@ export class LocationTracker {
     //     this.backgroundGeolocation.finish(); // FOR IOS ONLY
     //   });
   }
+
+startTrackingWeb(){
+  this.geolocation.getCurrentPosition().then((resp) => {
+    // resp.coords.latitude
+    // resp.coords.longitude
+    this.latitude = resp.coords.latitude;
+    this.longitude = resp.coords.longitude;
+    // console.log(resp.coords.latitude)
+    // console.log(resp.coords.longitude)
+   }).catch((error) => {
+     console.log('Error getting location', error);
+   });
+
+   this.watch = this.geolocation.watchPosition();
+   return this.watch;
+  //  watch.subscribe((data) => {
+  //   // data can be a set of coordinates, or an error (if an error occurred).
+  //   // data.coords.latitude
+  //   // data.coords.longitude
+  //  });
+  }
+
+  getPosition(){
+    return this.watch;
+  }
+  
+  
 }

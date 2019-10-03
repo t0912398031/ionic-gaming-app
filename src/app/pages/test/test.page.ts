@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Platform } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-test',
@@ -44,7 +45,7 @@ export class TestPage implements OnInit {
     let params;
     if (this.platform.is('android')) {
       params = {
-        'webClientId': '901598795613-cgdalt5l4sh0nsjoka1gn1f5kjnmohok.apps.googleusercontent.com',
+        'webClientId': environment.googleClientID,
         'offline': true
       }
     }

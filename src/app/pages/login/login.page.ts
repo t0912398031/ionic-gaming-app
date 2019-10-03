@@ -23,16 +23,49 @@ export class LoginPage implements OnInit {
     var provider = new firebase.auth.GoogleAuthProvider();
 
     // Optional: Specify additional OAuth 2.0 scopes that you want to request from the authentication provider. To add a scope, call addScope.
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
     
     // firebase.auth().languageCode = 'pt';
 
     // To apply the default browser preference instead of explicitly setting it.
     // firebase.auth().useDeviceLanguage();
+    provider.setCustomParameters({
+      // 'login_hint': 'user@example.com'
+      // 'access_type': 'offline',
+      // 'include_granted_scopes': 'true',
+      // 'response_type':'code'
 
+      access_type: 'offline',
+      state: 'state_parameter_passthrough_value',
+      include_granted_scopes: 'true',
+      response_type: 'code'
+    });
     // To sign in by redirecting to the sign-in page, call signInWithRedirect
     firebase.auth().signInWithRedirect(provider);
+
+    // firebase.auth().getRedirectResult().then(function(result) {
+    //   // console.log((<any>result).code)
+    //   console.log(result)
+    //   if (result.credential) {
+    //     // This gives you a Google Access Token. You can use it to access the Google API.
+    //     // var token = result.credential.accessToken;
+    //     // ...
+    //   }
+    //   // The signed-in user info.
+    //   // var user = result.user;
+    // }).catch(function(error) {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //   // ...
+    // });
+
+
 
     // Then, you can also retrieve the Google provider's OAuth token by calling getRedirectResult when your page loads:
     // firebase.auth().getRedirectResult()

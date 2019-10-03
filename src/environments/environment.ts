@@ -20,6 +20,7 @@ export const environment = {
     messagingSenderId: "901598795613",
     appId: "1:901598795613:web:5d48cf80f9526cc766bab4"
   },
+  googleClientID: "901598795613-cgdalt5l4sh0nsjoka1gn1f5kjnmohok.apps.googleusercontent.com", //OAuth 2.0 client IDs
   youtubeAPIkey: "AIzaSyDIHGXhq-WTdJV9z4S-HvSNsfyE_0d7Sh4",
   mapAPIkey: "AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94"
 };

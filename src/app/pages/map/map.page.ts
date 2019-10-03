@@ -6,7 +6,7 @@ import { MapsAPILoader } from '@agm/core';
 import { SharingService } from 'src/app/service/sharing.service';
 import { User } from 'src/app/model/user';
 
-// import { LocationTracker } from '../../providers/location-tracker';
+import { LocationTracker } from '../../../providers/location-tracker';
 declare var google;
 
 
@@ -21,13 +21,15 @@ export class MapPage implements OnInit {
     private geolocation: Geolocation,
     private mapsAPILoader: MapsAPILoader,
     private sharingService: SharingService,
-    // public locationTracker: LocationTracker
-    ) { }
+    public locationTracker: LocationTracker
+    ) { 
+      
+    }
   
   user: User;
-
-  latitude = 42.4264867;
-  longitude = -71.06760539999999;
+  watch;
+  latitude;
+  longitude;
   mapType = 'roadmap';
   label = "";
   iconUrl = {
@@ -51,6 +53,14 @@ export class MapPage implements OnInit {
   }
 
   ngOnInit() {
+    this.watch = this.locationTracker.getPosition();
+    this.watch.subscribe(position => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+      });
+  
+
     this.user = this.sharingService.fetch();
     console.log(this.user)
     this.label = "M"
@@ -74,23 +84,25 @@ export class MapPage implements OnInit {
   // Type : "roadmap" | "hybrid" | "satellite" | "terrain" | string
 
   locate(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
-      this.latitude = resp.coords.latitude;
-      this.longitude = resp.coords.longitude;
-      // console.log(resp.coords.latitude)
-      // console.log(resp.coords.longitude)
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+    // this.geolocation.getCurrentPosition().then((resp) => {
+    //   // resp.coords.latitude
+    //   // resp.coords.longitude
+    //   this.latitude = resp.coords.latitude;
+    //   this.longitude = resp.coords.longitude;
+    //   // console.log(resp.coords.latitude)
+    //   // console.log(resp.coords.longitude)
+    //  }).catch((error) => {
+    //    console.log('Error getting location', error);
+    //  });
 
-     let watch = this.geolocation.watchPosition();
-     watch.subscribe((data) => {
-      // data can be a set of coordinates, or an error (if an error occurred).
-      // data.coords.latitude
-      // data.coords.longitude
-     });
+    //  let watch = this.geolocation.watchPosition();
+    //  watch.subscribe((data) => {
+    //   // data can be a set of coordinates, or an error (if an error occurred).
+    //   // data.coords.latitude
+    //   // data.coords.longitude
+    //  });
+    // this.watch.filter((p) => p.coords !== undefined) //Filter Out Errors
+
   }
 
   

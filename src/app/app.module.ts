@@ -19,11 +19,13 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { SharingService } from './service/sharing.service';
+import { AuthGuardService } from './service/authGuard.service';
 
 // import { AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { LocationTracker } from '../providers/location-tracker';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -57,6 +59,8 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx'
     AngularFirestore,
 
     SharingService,
+    AuthGuardService,
+
     Geolocation,
     LocationTracker,
     BackgroundGeolocation

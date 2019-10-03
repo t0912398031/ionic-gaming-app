@@ -11,6 +11,15 @@ export class SharingService {
 
     private googleToken: any;
 
+
+    save(user) {
+        this.user = user;
+    }
+
+    fetch() {
+        return this.user;
+    }
+
     saveToken(token) {
         this.googleToken = token;
     }
@@ -20,13 +29,6 @@ export class SharingService {
     }
 
 
-    save(user) {
-        this.user = user;
-    }
-
-    fetch() {
-        return this.user;
-    }
 
     addAccount(a){
         let acc;
