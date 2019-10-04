@@ -10,13 +10,23 @@ import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocati
 @Injectable()
 export class LocationTracker {
 
-  public watch: any;    
+  private watch: any;    
   public lat: number = 0;
   public lng: number = 0;
-  public latitude;
-  public longitude;
+  private latitude;
+  private longitude;
+  public tracking: boolean = false;
 
   gps_update_link: string = "replace_with_your_http_request_link";
+
+  getLatitude(){
+    return this.latitude;
+  }
+
+  getLongitude(){
+    return this. longitude;
+  }
+
   constructor(
     //   public zone: NgZone,
       private backgroundGeolocation: BackgroundGeolocation,
@@ -27,7 +37,6 @@ export class LocationTracker {
   }
 
   startTracking() {
-    console.log("start")
 
     // Background Tracking
 
@@ -144,18 +153,26 @@ export class LocationTracker {
   }
 
 startTrackingWeb(){
-  this.geolocation.getCurrentPosition().then((resp) => {
-    // resp.coords.latitude
-    // resp.coords.longitude
-    this.latitude = resp.coords.latitude;
-    this.longitude = resp.coords.longitude;
-    // console.log(resp.coords.latitude)
-    // console.log(resp.coords.longitude)
-   }).catch((error) => {
-     console.log('Error getting location', error);
-   });
+  // this.geolocation.getCurrentPosition().then((resp) => {
+  //   // resp.coords.latitude
+  //   // resp.coords.longitude
+  //   this.latitude = resp.coords.latitude;
+  //   this.longitude = resp.coords.longitude;
+  //   // console.log(resp.coords.latitude)
+  //   // console.log(resp.coords.longitude)
+  //  }).catch((error) => {
+  //    console.log('Error getting location', error);
+  //  });
 
-   this.watch = this.geolocation.watchPosition();
+  this.watch = this.geolocation.watchPosition();
+  this.watch.subscribe(position => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+  });
+   this.tracking = true;
+
+   console.log("tracking: " + this.tracking)
    return this.watch;
   //  watch.subscribe((data) => {
   //   // data can be a set of coordinates, or an error (if an error occurred).

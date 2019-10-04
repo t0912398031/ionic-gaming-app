@@ -90,14 +90,14 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
       // if (this.platform.is('cordova')) { 
       //   // make your native API calls 
       // } else { 
       //   // fallback to browser APIs 
       // }
 
-      
-      // this.locationTracker.startTracking();
    
       // firebaseConfig
       firebase.initializeApp(environment.firebaseConfig);
@@ -116,28 +116,32 @@ export class AppComponent {
           //   console.log(data);
             
           // })
-          let currentUser = {
-            uid: user.uid,
-            phoneNumber: user.phoneNumber,
-            photoURL: user.photoURL,
-            creationTime: user.metadata.creationTime,
-            lastSignInTime: user.metadata.lastSignInTime,
-            isAnonymous: user.isAnonymous,
-            email: user.email,
-            displayName: user.displayName,
-            emailVerified: user.emailVerified,
-            refreshToken: user.refreshToken
-          }
-          this.sharingService.save(currentUser);
+          
+          
+          
+          // let currentUser = {
+          //   uid: user.uid,
+          //   phoneNumber: user.phoneNumber,
+          //   photoURL: user.photoURL,
+          //   creationTime: user.metadata.creationTime,
+          //   lastSignInTime: user.metadata.lastSignInTime,
+          //   isAnonymous: user.isAnonymous,
+          //   email: user.email,
+          //   displayName: user.displayName,
+          //   emailVerified: user.emailVerified,
+          //   refreshToken: user.refreshToken
+          // }
+          // this.sharingService.save(currentUser);
+        this.sharingService.save(user);
+        
 
-
-          this.splashScreen.hide();
+          // this.splashScreen.hide();
         }
         else {
           console.log("no user found");
           this.router.navigate(["/login"]);
           // this.router.navigate(["/test"]);
-          this.splashScreen.hide();
+          // this.splashScreen.hide();
         }
       })
 

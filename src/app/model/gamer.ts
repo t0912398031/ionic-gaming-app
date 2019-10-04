@@ -12,6 +12,7 @@ export class Gamer {
   phone: string
   born: number
   games: Array<string>
+  gameInfo: Object
   // googleIdToken: string
   location: firebase.firestore.GeoPoint
   
@@ -25,6 +26,7 @@ export class Gamer {
     phone: string,
     born: number,
     games: Array<string>,
+    gameInfo: Object,
     // googleIdToken: string,
     location: firebase.firestore.GeoPoint
   ) {
@@ -37,6 +39,7 @@ export class Gamer {
     this.phone = phone; 
     this.born = born; 
     this.games = games;
+    this.gameInfo = gameInfo;
     // this.googleIdToken = googleIdToken,
     this.location = location
 

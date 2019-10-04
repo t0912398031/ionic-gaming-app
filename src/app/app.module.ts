@@ -19,6 +19,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { SharingService } from './service/sharing.service';
+import { UserService } from './service/user.service';
 import { AuthGuardService } from './service/authGuard.service';
 
 // import { AgmCoreModule } from '@agm/core';
@@ -59,6 +60,7 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx'
     AngularFirestore,
 
     SharingService,
+    UserService,
     AuthGuardService,
 
     Geolocation,

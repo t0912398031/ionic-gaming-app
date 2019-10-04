@@ -11,11 +11,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { SharingService } from '../../service/sharing.service';
+import { UserService } from '../../service/user.service';
 import { User } from 'src/app/model/user';
 
 import { AppComponent } from '../../app.component';
 import { Gamer } from 'src/app/model/gamer';
 import { LocationTracker } from 'src/providers/location-tracker';
+
+import {DomSanitizer} from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +41,10 @@ export class ProfilePage implements OnInit {
   longitude;
   mapType = 'roadmap';
 
+  private channelId = 'UCphmcGUje3ErRaZZuJo-4wQ';
+  private channelURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/live_stream?channel=' + this.channelId);
   
+
   private itemDoc: AngularFirestoreDocument<User>;
   item: Observable<User>;
 
@@ -54,7 +61,10 @@ export class ProfilePage implements OnInit {
     private afs: AngularFirestore,
 
     private sharingService: SharingService,
-    private locationTracker: LocationTracker
+    private userService: UserService,
+    private locationTracker: LocationTracker,
+
+    private sanitizer: DomSanitizer
   ) { 
 
     this.itemDoc = afs.doc<User>('users/aturing');
@@ -142,61 +152,44 @@ export class ProfilePage implements OnInit {
         })
         
 
-        this.watch = this.locationTracker.getPosition();
-        this.watch.subscribe(position => {
-          self.latitude = position.coords.latitude;
-          self.longitude = position.coords.longitude;
-          // console.log(position.coords.latitude + ' ' + position.coords.longitude);
-          });
+        // this.userService.createUser(user);  
+
+        // this.watch = this.locationTracker.getPosition();
+        // this.watch.subscribe(position => {
+        //   self.latitude = position.coords.latitude;
+        //   self.longitude = position.coords.longitude;
+        //   // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+        //   });
         
+          
 
-        
+    // this.afs.firestore.doc('/gamers/' + user.uid).get()
+    // // afs.firestore.collection('users').doc('aturin').get()
+    //   .then(docSnapshot => {
+    //     if (docSnapshot.exists) {
+    //       console.log("doc exist")
+    //     } else {
+    //       console.log("doc not exist")
 
-    this.afs.firestore.doc('/gamers/' + user.uid).get()
-    // afs.firestore.collection('users').doc('aturin').get()
-      .then(docSnapshot => {
-        if (docSnapshot.exists) {
-          console.log("doc exist")
-        } else {
-          console.log("doc not exist")
+    //       let gameData: Array<string> = ['League of Legends', 'Arena of Valor', 'PUBG']
 
-          let gameData: Array<string> = ['League of Legends', 'Arena of Valor', 'PUBG']
-          // let gamer = new Gamer(
-          //   user.uid,
-          //   user.displayName,
-          //   " ",
-          //   " ",
-          //   " ",
-          //   user.email,
-          //   user.phoneNumber,
-          //   1,
-          //   games,
-          //   // googleIdToken: string,
-          //   new firebase.firestore.GeoPoint( self.latitude, self.longitude));
+    //         let gamer: Gamer = {
+    //           uid: user.uid,
+    //           displayName: user.displayName,
+    //           first: null,
+    //           last: null,
+    //           middle: null,
+    //           email: user.email,
+    //           phone: user.phoneNumber,
+    //           born: 1,
+    //           games: gameData,
+    //           location: new firebase.firestore.GeoPoint( self.latitude, self.longitude)
+    //           };
+    //         // console.log(gamer)
+    //       self.itemsCollection.doc(user.uid).set(gamer);
 
-
-            let gamer: Gamer = {
-              uid: user.uid,
-              displayName: user.displayName,
-              first: null,
-              last: null,
-              middle: null,
-              email: user.email,
-              phone: user.phoneNumber,
-              born: 1,
-              games: gameData,
-              location: new firebase.firestore.GeoPoint( self.latitude, self.longitude)
-              };
-            console.log(gamer)
-            // this.afs.collection('gamers').doc(user.uid).set(gamer);
-          // self.itemsCollection.add(gamer);
-          self.itemsCollection.doc(user.uid).set(gamer);
-
-        }
-      });
-
-    //     console.log(firebase.auth().currentUser);
-    // console.log(this.fireAuth.auth.currentUser);
+    //     }
+    //   });
 
     // user.providerData.forEach(function (profile) {
     //   console.log("Sign-in provider: " + profile.providerId);
@@ -206,9 +199,6 @@ export class ProfilePage implements OnInit {
     //   console.log("  Photo URL: " + profile.photoURL);
     // });
      
-        // console.log(this.u);
-        
-
       }
       else {
         this.router.navigate(["/login"]);

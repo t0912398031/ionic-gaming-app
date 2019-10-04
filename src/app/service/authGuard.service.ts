@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import * as firebase from 'firebase';
+import { LocationTracker } from 'src/providers/location-tracker';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private locationTracker: LocationTracker) {
 
     }
 
     canActivate(route: ActivatedRouteSnapshot): boolean {
 
-        console.log("route: " + route);
-
+        // console.log("route: " + route);
+        if(route.url.toString()=='map'){
+            if(!this.locationTracker.tracking){
+                this.router.navigate(['']);
+                return false;
+            }
+        }
 
 
 

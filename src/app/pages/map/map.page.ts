@@ -53,16 +53,19 @@ export class MapPage implements OnInit {
   }
 
   ngOnInit() {
-    this.watch = this.locationTracker.getPosition();
-    this.watch.subscribe(position => {
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-      // console.log(position.coords.latitude + ' ' + position.coords.longitude);
-      });
-  
+    // this.latitude = this.locationTracker.latitude;
+    // this.longitude = this.locationTracker.longitude;
+    // this.watch = this.locationTracker.getPosition();
+    // this.watch.subscribe(position => {
+    //   this.latitude = position.coords.latitude;
+    //   this.longitude = position.coords.longitude;
+    //   // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+    //   });
+    this.latitude = this.locationTracker.getLatitude();
+    this.longitude = this.locationTracker.getLongitude();
 
     this.user = this.sharingService.fetch();
-    console.log(this.user)
+    // console.log(this.user)
     this.label = "M"
 
 
