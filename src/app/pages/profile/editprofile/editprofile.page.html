@@ -8,65 +8,63 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-radio-group>
-      <ion-list-header>
-        <ion-label>Name</ion-label>
-      </ion-list-header>
+
   
-      <ion-item>
-        <ion-label>Biff</ion-label>
-        <ion-radio slot="start" value="biff" checked></ion-radio>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label>Griff</ion-label>
-        <ion-radio slot="start" value="griff"></ion-radio>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label>Buford</ion-label>
-        <ion-radio slot="start" value="buford"></ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list>
-123
-  <ion-list>
-      <ion-list-header>
-        <ion-label>Name</ion-label>
-      </ion-list-header>
-
-      <ion-item>
-        <ion-label>Griff</ion-label>
-        <!-- <ion-radio slot="start" value="griff"></ion-radio> -->
-        <ion-checkbox slot="start"></ion-checkbox>
-      </ion-item>
-    <!-- Default Checkbox -->
-<ion-checkbox></ion-checkbox>
-
-<!-- Disabled Checkbox -->
-<ion-checkbox disabled="true"></ion-checkbox>
-
-<!-- Checked Checkbox -->
-<ion-checkbox checked="true"></ion-checkbox>
-
-<!-- Checkbox Colors -->
-<ion-checkbox color="primary"></ion-checkbox>
-<ion-checkbox color="secondary"></ion-checkbox>
-<ion-checkbox color="danger"></ion-checkbox>
-<ion-checkbox color="light"></ion-checkbox>
-<ion-checkbox color="dark"></ion-checkbox>
-
-    </ion-list>
-
-<!-- Checkboxes in a List -->
-<!-- <ion-list>
-  <ion-item *ngFor="let entry of form">
-    <ion-label>{{entry.val}}</ion-label>
-    <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+<ion-list>
+  <ion-item>
+    <ion-label position="stacked">Display Name</ion-label>
+    <ion-input clearInput value = "{{(gamer | async)?.displayName}}" placeholder="ex. faker" [(ngModel)]="displayName"></ion-input>
   </ion-item>
-</ion-list> -->
 
+  <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input clearInput value = "{{(gamer | async)?.email}}" placeholder="ex. 123@gmail.com" [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Phone</ion-label>
+    <ion-input clearInput value = "{{(gamer | async)?.phone}}" placeholder="ex. 1234567890" [(ngModel)]="phone"></ion-input>
+  </ion-item>
+</ion-list>
+
+
+<ion-list>
+  <ion-list-header>
+    <ion-label>Gender</ion-label>
+  </ion-list-header>
+
+  <ion-radio-group (ionChange)="onChangeHandler($event)">
+    <ion-item>
+      <ion-label>Male</ion-label>
+      <ion-radio slot="start" value="male" [checked]="gender=='male'"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Female</ion-label>
+      <ion-radio slot="start" value="female" [checked]="gender=='female'"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+</ion-list>
+
+
+  
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Games</ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let game of games">
+      <ion-label>{{game.name}}</ion-label>
+      <ion-checkbox slot="start"  [(ngModel)]="game.isChecked"></ion-checkbox>
+    </ion-item>
+    
+  </ion-list>
 
 <ion-button color="primary" (click) ="update()">update()</ion-button>
+<ion-button color="primary" (click) ="updateProfile()">updateProfile</ion-button>
+
+<ion-button color="primary" (click) ="test()">test</ion-button>
+
+
 </ion-content>

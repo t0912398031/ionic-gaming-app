@@ -1,6 +1,7 @@
 import { Injectable, } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { first, take } from 'rxjs/operators';
 import { Gamer } from 'src/app/model/gamer';
 import * as firebase from "firebase/app";
 import { LocationTracker } from 'src/providers/location-tracker';
@@ -19,12 +20,22 @@ export class UserService {
 
     private gamerDoc: AngularFirestoreDocument<Gamer>;
     private gamer: Observable<Gamer>;
+    private g: any;
+    getUser(){
+        return this.user;
+    }
+
     getGamerDoc(){
         return this.gamerDoc;
     }
     getGamer(){
         return this.gamer;
     }
+    getG(){
+        
+        return this.g;
+    }
+ 
 
     private itemsCollection: AngularFirestoreCollection<Gamer>;
     private items: Observable<Gamer[]>;
@@ -39,17 +50,10 @@ export class UserService {
         this.itemsCollection = afs.collection<Gamer>('gamers');
         this.items = this.itemsCollection.valueChanges();
 
-        
-
+    
         this.watch = this.locationTracker.getPosition();
-        // this.watch.subscribe(position => {
-        //     this.latitude = position.coords.latitude;
-        //     this.longitude = position.coords.longitude;
-        //     // console.log(position.coords.latitude + ' ' + position.coords.longitude);
-        // });
-        // this.latitude = this.locationTracker.getLatitude();
-        // this.longitude = this.locationTracker.getLongitude();
-        // console.log(this.latitude)
+
+        let self = this;
         this.fireAuth.auth.onAuthStateChanged(user => {
             if (user) {
                 this.user = user;
@@ -57,34 +61,39 @@ export class UserService {
 
                 this.gamerDoc = afs.doc<Gamer>('gamers/' + this.user.uid);
                 this.gamer = this.gamerDoc.valueChanges();
+
+                // Get Gamer g
+                this.gamerDoc.ref.get().then((doc)=> {
+                    if (doc.exists) {
+                        // console.log("Document data:", doc.data());
+
+                        // Theme Preference
+                        document.body.classList.toggle(doc.data().theme, true);
+                        self.g = doc.data();
+                    } else {
+                        console.log("No such document!");
+                    }
+                    }).catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
+
             }
             else {
                 this.router.navigate(["/login"]);
             }
         })
     }
-
+    
     createUser(user) {
-        // let self = this;
+        this.user = user;
         this.afs.firestore.doc('/gamers/' + user.uid).get()
             // afs.firestore.collection('users').doc('aturin').get()
             .then(docSnapshot => {
                 if (docSnapshot.exists) {
                     console.log("doc exist")
+                    
                 } else {
                     console.log("doc not exist")
-                    // Get Current Location
-                    // this.watch = this.locationTracker.getPosition();
-                    // this.watch.subscribe(position => {
-                    //     self.latitude = position.coords.latitude;
-                    //     self.longitude = position.coords.longitude;
-                    //     // console.log(position.coords.latitude + ' ' + position.coords.longitude);
-                    //     console.log(self.latitude + ' ' + self.longitude);
-                    // });
-
-                    // console.log(self.latitude + ' ' + self.longitude);
-
-                    let gameData: Array<string> = ['League of Legends', 'Arena of Valor', 'PUBG']
 
                     let gameInfo = {
                         gameName: 'League of Legends',
@@ -95,6 +104,29 @@ export class UserService {
                         role: ['mid','adc'],
     
                     };
+
+                    let gameData: Array<Object> = 
+                    [
+                        {
+                          name: 'Minecraft',
+                          isChecked: false,
+                        },
+                        {
+                          name: 'League of Legends',
+                          isChecked: true,
+                          gameInfo: gameInfo
+                        },
+                        {
+                          name: 'PUBG',
+                          isChecked: false,
+                        },
+                        {
+                          name: 'Arena of Valor',
+                          isChecked: false,
+                        }  
+                    ]
+
+                    
                     let latitude = this.locationTracker.getLatitude();
                     let longitude = this.locationTracker.getLongitude();
 
@@ -104,12 +136,14 @@ export class UserService {
                         first: null,
                         last: null,
                         middle: null,
+                        gender: null,
                         email: user.email,
                         phone: user.phoneNumber,
                         born: 1,
                         games: gameData,
-                        gameInfo: gameInfo,
-                        location: new firebase.firestore.GeoPoint(latitude, longitude)
+                        // gameInfo: gameInfo,
+                        location: new firebase.firestore.GeoPoint(latitude, longitude),
+                        theme:'dark'
                     };
                     // console.log(gamer)
                     this.itemsCollection.doc(user.uid).set(gamer)

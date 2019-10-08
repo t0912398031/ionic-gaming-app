@@ -8,13 +8,15 @@ export class Gamer {
   first: string
   last: string
   middle: string
+  gender: string
   email: string
   phone: string
   born: number
-  games: Array<string>
-  gameInfo: Object
+  games: Array<Object>
+  // gameInfo: Object
   // googleIdToken: string
   location: firebase.firestore.GeoPoint
+  theme: string
   
   constructor(
     uid: string,
@@ -22,26 +24,30 @@ export class Gamer {
     first: string,
     last: string,
     middle: string,
+    gender: string,
     email: string,
     phone: string,
     born: number,
-    games: Array<string>,
-    gameInfo: Object,
+    games: Array<Object>,
+    // gameInfo: Object,
     // googleIdToken: string,
-    location: firebase.firestore.GeoPoint
+    location: firebase.firestore.GeoPoint,
+    theme: string
   ) {
     this.uid = uid;
     this.displayName = displayName;
     this.first = first; 
     this.last = last;
     this.middle = middle;
+    this.gender = gender;
     this.email = email;
     this.phone = phone; 
     this.born = born; 
     this.games = games;
-    this.gameInfo = gameInfo;
+    // this.gameInfo = gameInfo;
     // this.googleIdToken = googleIdToken,
-    this.location = location
+    this.location = location;
+    this.theme = theme
 
   }
 

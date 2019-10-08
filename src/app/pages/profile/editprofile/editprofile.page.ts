@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/service/user.service';
+import { Gamer } from 'src/app/model/gamer';
+import { AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+import { AlertController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-editprofile',
@@ -7,12 +13,42 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./editprofile.page.scss'],
 })
 export class EditprofilePage implements OnInit {
-  gamerDoc;
-  constructor(private userService: UserService,) { 
-    this.gamerDoc = userService.getGamerDoc();
+  private gamerDoc: AngularFirestoreDocument<Gamer>;
+  private gamer: Observable<Gamer>;
+  private g: Gamer;
+
+  private displayName;
+  private email;
+  private phone;
+  private gender;
+  
+  onChangeHandler($event) {
+    this.gender = $event.target.value;
+    this.g.gender = $event.target.value;
   }
 
+  private games: Array<Object>;
+
+  
+  constructor(private userService: UserService,private alertController: AlertController) { 
+    this.gamerDoc = this.userService.getGamerDoc();
+    this.gamer = this.userService.getGamer();
+    this.g = this.userService.getG();
+
+    this.games = this.g.games;
+    this.gender = this.g.gender;
+
+    this.displayName = this.g.displayName;
+    this.email = this.g.email;
+    this.phone = this.g.phone;
+
+  }
+  test(){
+    console.log(this.gender)
+  }
+  
   ngOnInit() {
+    
   }
 
   update(){
@@ -27,12 +63,8 @@ export class EditprofilePage implements OnInit {
     };
 
 
-    // this.gamerDoc.update({
-    //   last: this.data
-    // });
-
     this.gamerDoc.update({
-      gameInfo: gameInfo
+      // gameInfo: gameInfo
     })
     .catch(err => {
         console.log("update user fail" );
@@ -42,4 +74,55 @@ export class EditprofilePage implements OnInit {
     // this.userService.updateUser();
   }
 
+  updateProfile(){
+
+    if(!this.phone || !this.displayName || !this.email){
+      this.presentAlert('invalid input');
+      return;
+    }
+    this.gamerDoc.update({
+      displayName: this.displayName,
+      email: this.email,
+      phone: this.phone,
+      gender: this.gender,
+      games: this.games
+    });
+    this.presentAlert('update');
+  }
+
+  async presentAlert(type: string) {
+    let alert;
+    switch(type) {
+      case 'invalid input':
+          alert = await this.alertController.create(  
+            {
+            header: 'Alert',
+            subHeader: '',
+            message: 'Please fill up all fields.',
+            buttons: ['OK'],
+          });
+        break;
+      case 'update':
+          alert = await this.alertController.create(  
+            {
+            header: 'Alert',
+            subHeader: '',
+            message: 'Update Successfully',
+            buttons: ['OK'],
+          });
+        break;
+      default:
+          alert = await this.alertController.create(  
+            {
+            header: 'Alert',
+            subHeader: '',
+            message: 'Warning',
+            buttons: ['OK'],
+          });
+    }
+
+    await alert.present();
+    let result = await alert.onDidDismiss();
+    // console.log(result);
+  }
 }

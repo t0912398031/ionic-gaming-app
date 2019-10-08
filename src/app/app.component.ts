@@ -17,7 +17,8 @@ import * as firebase from "firebase/app";
 
 import { Router } from '@angular/router';
 import { SharingService } from './service/sharing.service';
-// import { AngularFireAuth } from '@angular/fire/auth';
+import { UserService } from './service/user.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -67,8 +68,9 @@ export class AppComponent {
     // private firebaseConfig: FirebaseConfig
     private router: Router,
     private sharingService: SharingService,
+    private userService: UserService,
     // private location,
-    // private fireAuth: AngularFireAuth
+    private fireAuth: AngularFireAuth,
     private locationTracker: LocationTracker
     // private backgroundGeolocation: BackgroundGeolocation
   ) {
@@ -100,8 +102,9 @@ export class AppComponent {
 
    
       // firebaseConfig
-      firebase.initializeApp(environment.firebaseConfig);
-      firebase.auth().onAuthStateChanged(user => {
+      // firebase.initializeApp(environment.firebaseConfig);
+      // firebase.auth().onAuthStateChanged(user => {
+      this.fireAuth.auth.onAuthStateChanged(user => {
         if (user) {
           this.u = true;
 
@@ -111,13 +114,9 @@ export class AppComponent {
           //   console.log(data);
             
           // })
-          this.locationTracker.startTrackingWeb()
-          // this.locationTracker.getPosition().subscribe(data=>{
-          //   console.log(data);
-            
-          // })
-          
-          
+          this.locationTracker.startTrackingWeb();
+
+          this.userService.createUser(user);  
           
           // let currentUser = {
           //   uid: user.uid,

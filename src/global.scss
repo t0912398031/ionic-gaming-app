@@ -28,8 +28,16 @@
 
 
 
+// body {
+//   background: url(/assets/bg1.jpg) no-repeat center/cover fixed;
+// }
 
 
+ion-content {
+  --background: none;
+  --ion-toolbar-background: none;
+  --ion-item-background: none;
+}
 
 
 
@@ -39,6 +47,8 @@
  */
 
  body.dark {
+    background: url(/assets/bg1.jpg) no-repeat center/cover fixed;
+
     --ion-color-primary: #428cff;
     --ion-color-primary-rgb: 66,140,255;
     --ion-color-primary-contrast: #ffffff;
@@ -101,6 +111,11 @@
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
+
+
+    --background: none;
+    --ion-toolbar-background: none;
+    --ion-item-background: none;
   }
   
   /*
@@ -135,8 +150,9 @@
     --ion-color-step-900: #e6e6e6;
     --ion-color-step-950: #f2f2f2;
   
-    --ion-toolbar-background: #0d0d0d;
-  
+    // --ion-toolbar-background: #0d0d0d;
+    --ion-toolbar-background: none;
+
     --ion-item-background: #1c1c1c;
     --ion-item-background-activated: #313131;
   }
@@ -178,3 +194,8 @@
   
     --ion-item-background: #1A1B1E;
   }
+
+  /* Optional CSS, this is added for the flashing that happens when toggling between themes */
+ion-item {
+  --transition: none;
+}
