@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>editprofile</ion-title>
+    <ion-title>Editprofile</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,18 +13,19 @@
 <ion-list>
   <ion-item>
     <ion-label position="stacked">Display Name</ion-label>
-    <ion-input clearInput value = "{{(gamer | async)?.displayName}}" placeholder="ex. faker" [(ngModel)]="displayName"></ion-input>
+    <ion-input clearInput  placeholder="ex. faker" [(ngModel)]="displayName"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Email</ion-label>
-    <ion-input clearInput value = "{{(gamer | async)?.email}}" placeholder="ex. 123@gmail.com" [(ngModel)]="email"></ion-input>
+    <ion-input clearInput  placeholder="ex. 123@gmail.com" [(ngModel)]="email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="stacked">Phone</ion-label>
-    <ion-input clearInput value = "{{(gamer | async)?.phone}}" placeholder="ex. 1234567890" [(ngModel)]="phone"></ion-input>
+    <ion-input clearInput  placeholder="ex. 1234567890" [(ngModel)]="phone"></ion-input>
   </ion-item>
+  
 </ion-list>
 
 
@@ -35,12 +36,16 @@
 
   <ion-radio-group (ionChange)="onChangeHandler($event)">
     <ion-item>
+      
       <ion-label>Male</ion-label>
+      <ion-icon id="male" name="male"></ion-icon>     
       <ion-radio slot="start" value="male" [checked]="gender=='male'"></ion-radio>
     </ion-item>
 
     <ion-item>
+      
       <ion-label>Female</ion-label>
+      <ion-icon id="female" name="female"></ion-icon>
       <ion-radio slot="start" value="female" [checked]="gender=='female'"></ion-radio>
     </ion-item>
   </ion-radio-group>

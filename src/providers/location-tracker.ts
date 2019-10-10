@@ -4,6 +4,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation/ngx';
+// import { UserService } from 'src/app/service/user.service';
 
 // import 'rxjs/add/operator/filter';
 
@@ -30,7 +31,8 @@ export class LocationTracker {
   constructor(
     //   public zone: NgZone,
       private backgroundGeolocation: BackgroundGeolocation,
-      private geolocation: Geolocation
+      private geolocation: Geolocation,
+      // private userService: UserService
     
     ) {
 
@@ -169,6 +171,10 @@ startTrackingWeb(){
       this.latitude = position.coords.latitude;
       this.longitude = position.coords.longitude;
       // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+      // this.userService.updateUserLocation(position.coords.latitude, position.coords.longitude)
+
+
+
   });
    this.tracking = true;
 
@@ -181,7 +187,7 @@ startTrackingWeb(){
   //  });
   }
 
-  getPosition(){
+  getWatch(){
     return this.watch;
   }
   

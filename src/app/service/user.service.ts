@@ -20,8 +20,8 @@ export class UserService {
 
     private gamerDoc: AngularFirestoreDocument<Gamer>;
     private gamer: Observable<Gamer>;
-    private g: any;
-    getUser(){
+
+    getCurrentUser(){
         return this.user;
     }
 
@@ -31,10 +31,7 @@ export class UserService {
     getGamer(){
         return this.gamer;
     }
-    getG(){
-        
-        return this.g;
-    }
+
  
 
     private itemsCollection: AngularFirestoreCollection<Gamer>;
@@ -51,7 +48,7 @@ export class UserService {
         this.items = this.itemsCollection.valueChanges();
 
     
-        this.watch = this.locationTracker.getPosition();
+        // this.watch = this.locationTracker.getWatch();
 
         let self = this;
         this.fireAuth.auth.onAuthStateChanged(user => {
@@ -69,7 +66,7 @@ export class UserService {
 
                         // Theme Preference
                         document.body.classList.toggle(doc.data().theme, true);
-                        self.g = doc.data();
+                        // self.g = doc.data();
                     } else {
                         console.log("No such document!");
                     }
@@ -82,6 +79,10 @@ export class UserService {
                 this.router.navigate(["/login"]);
             }
         })
+    }
+
+    getUserDoc(uid: string){
+        return this.afs.doc<Gamer>('gamers/' + uid);
     }
     
     createUser(user) {
@@ -136,7 +137,7 @@ export class UserService {
                         first: null,
                         last: null,
                         middle: null,
-                        gender: null,
+                        gender: 'male',
                         email: user.email,
                         phone: user.phoneNumber,
                         born: 1,
@@ -161,7 +162,8 @@ export class UserService {
 
 
     updateUser(user) {
-        // let self = this;
+        
+        let self = this;
         this.afs.firestore.doc('/gamers/' + user.uid).get()
             // afs.firestore.collection('users').doc('aturin').get()
             .then(docSnapshot => {
@@ -179,12 +181,6 @@ export class UserService {
     
                     };
 
-                    // this.itemsCollection.doc(user.uid).update(
-                    //     {
-                    //         age: 13,
-                    //         'gameInfo.rank': 'platnium'
-                    //     }
-                    // )
                     this.itemsCollection.doc(user.uid).update({
                         gameInfo: gameInfo
                     })
@@ -198,6 +194,55 @@ export class UserService {
                     console.log("doc not exist")                  
                 }
             });
+
+
+
+    }
+
+    updateUserLocation() {
+        this.locationTracker.getWatch().subscribe(position => {
+            // this.latitude = position.coords.latitude;
+            // this.longitude = position.coords.longitude;
+            // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+            // this.userService.updateUserLocation(position.coords.latitude, position.coords.longitude)
+      
+            this.gamerDoc.update({
+                location: new firebase.firestore.GeoPoint(position.coords.latitude, position.coords.longitude),
+              })
+      
+        });
+        
+    //     // let self = this;
+    //     this.afs.firestore.doc('/gamers/' + user.uid).get()
+    //         // afs.firestore.collection('users').doc('aturin').get()
+    //         .then(docSnapshot => {
+    //             if (docSnapshot.exists) {
+    //                 console.log("doc exist")
+
+
+    //                 let gameInfo = {
+    //                     gameName: 'League of Legends',
+    //                     server: 'NA',
+    //                     gameId: 't0912398031',
+    //                     experience: 2,
+    //                     rank: 'platnium',
+    //                     role: ['mid','adc'],
+    
+    //                 };
+
+    //                 this.itemsCollection.doc(user.uid).update({
+    //                     gameInfo: gameInfo
+    //                 })
+    //                 .catch(err => {
+    //                     console.log("update user fail" );
+    //                 });
+    //                 console.log("update user suceed" );
+
+
+    //             } else {
+    //                 console.log("doc not exist")                  
+    //             }
+    //         });
 
 
 

@@ -27,16 +27,37 @@
 
     <ion-button color="primary" (click) ="testHttp()">testHttp</ion-button>
 <!-- {{user | json}} -->
-{{latitude}}
-{{longitude}}
+
 
 
 <ion-button color="primary" (click) ="testupdate()">testupdate</ion-button>
 <input placeholder="{{item.last}}" [(ngModel)]="data" >
-{{(item | async)?.last}}
- {{item | async}}
 
+ {{user.uid}}
 
+ <ion-list>
+    <ion-item>
+      <ion-icon id="male" [name]="gender" slot="start" *ngIf="gender==='male'"></ion-icon>
+      <ion-icon id="female" [name]="gender" slot="start" *ngIf="gender==='female'"></ion-icon>
+  
+      <div class="item-note" slot="end">
+        {{(gamer | async)?.displayName}}
+      </div>
+    </ion-item>
+    <ion-item>
+      Email:
+      <div class="item-note" slot="end">
+        {{(gamer | async)?.email}}
+      </div>
+    </ion-item>
+    <ion-item>
+      City:
+      <div class="item-note" slot="end">
+        {{(gamer | async)?.city}}
+      </div>
+    </ion-item>
+  </ion-list>
+  
 
 
 
@@ -45,6 +66,7 @@
   <ion-card-header>
     <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
     <ion-card-title>Card Title</ion-card-title>
+    
   </ion-card-header>
 
   <ion-card-content>
@@ -56,18 +78,23 @@
 <ion-card>
   <ion-item>
     <ion-icon name="pin" slot="start"></ion-icon>
-    <ion-label>ion-item in a card, icon left, button right</ion-label>
-    <ion-button fill="outline" slot="end">View</ion-button>
+    <!-- <ion-label>ion-item in a card, icon left, button right</ion-label> -->
+    <ion-card-title>Card Title</ion-card-title>
+    <ion-button color="danger" fill="outline" slot="end" >
+      Live
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-button>
+
   </ion-item>
 
   <ion-card-content>
-    
-    This is content, without any paragraph or header tags,
+    <!-- <ion-textarea [(ngModel)]="cardContent" disabled="isEdit"></ion-textarea> -->
+  This is content, without any paragraph or header tags,
     within an ion-card-content element.
-
     
   </ion-card-content>
   <iframe id = "liveframe"  [src] ='channelURL' frameborder="0" allowfullscreen></iframe>
+  
 </ion-card>
 
 <ion-card>

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>map</ion-title>
+    <ion-title>Map</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +11,7 @@
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yqiP--6PYi546T4QP49Dk4NcrueqT94&callback=initMap"
     async defer></script> -->
   
-  <ion-button color="primary" (click) ="locate()">locate</ion-button>
+  <!-- <ion-button color="primary" (click) ="locate()">locate</ion-button> -->
   <agm-map [latitude]='latitude' [longitude]='longitude' [mapTypeId]='mapType' [zoom]="13">
 
 
@@ -31,7 +31,10 @@
     }
   }">
       <agm-info-window [disableAutoPan]="true">
-          <a routerLink="/">Go there</a>
+          <!-- <a routerLink="['/userprofile', '1']">{{marker.uid}}</a> -->
+          
+          <a (click)="onViewDetails(marker.uid)">{{marker.uid}}</a>
+
       </agm-info-window>
   </agm-marker>
   </agm-map>

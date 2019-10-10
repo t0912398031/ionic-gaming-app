@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapsAPILoader } from '@agm/core';
@@ -21,7 +21,8 @@ export class MapPage implements OnInit {
     private geolocation: Geolocation,
     private mapsAPILoader: MapsAPILoader,
     private sharingService: SharingService,
-    public locationTracker: LocationTracker
+    public locationTracker: LocationTracker,
+    private router: Router
     ) { 
       
     }
@@ -44,11 +45,11 @@ export class MapPage implements OnInit {
   filteredMarkers = [];
 
 
-  getLocations(): Array<{ latitude: number, longitude: number, iconUrl: string }> {
+  getLocations(): Array<{uid: string, latitude: number, longitude: number, iconUrl: string }> {
     return [
-      { 'latitude': 42.395147, 'longitude': -71.066963, 'iconUrl': './assets/icon/Leagueicon.png'},
-      { 'latitude': 42.395147, 'longitude': -71.067963, 'iconUrl': './assets/icon/Leagueicon.png'},
-      { 'latitude': 42.395147, 'longitude': -71.068963, 'iconUrl': './assets/icon/Leagueicon.png'},
+      { 'uid': 'TMDz1cVAM7QagTPsU5aIJtlRzs52', 'latitude': 42.4165744, 'longitude': -71.066963, 'iconUrl': './assets/icon/Leagueicon.png'},
+      { 'uid': 'tF96P4qpFLVfKhxukQ8iOCeq4P72', 'latitude': 42.395147, 'longitude': -71.067963, 'iconUrl': './assets/icon/Leagueicon.png'},
+      { 'uid': '3', 'latitude': 42.395147, 'longitude': -71.068963, 'iconUrl': './assets/icon/Leagueicon.png'},
     ];
   }
 
@@ -120,6 +121,11 @@ export class MapPage implements OnInit {
 
   stop(){
     // this.locationTracker.stopTracking();
+  }
+
+  onViewDetails(id){
+    // console.log(id)
+    this.router.navigate(['/userprofile', id]);
   }
   
 }

@@ -21,6 +21,7 @@ import { LocationTracker } from 'src/providers/location-tracker';
 import {DomSanitizer} from '@angular/platform-browser';
 
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -28,10 +29,11 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ProfilePage implements OnInit {
 
-  user: any = {}
+  private user;
   u: any
   data: any;
   watch: any;
+  private gender;
 
   googleLinked = false;
   fbLinked = false;
@@ -41,9 +43,15 @@ export class ProfilePage implements OnInit {
   longitude;
   mapType = 'roadmap';
 
+  private cardContent = '7 years League of Legends experience, 1 year Arena of Valor. Ranked top 1 NA in season 11';
+  private isEdit = false;
+
   private channelId = 'UCphmcGUje3ErRaZZuJo-4wQ';
   private channelURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/live_stream?channel=' + this.channelId);
   
+  private gamerDoc: AngularFirestoreDocument<Gamer>;
+  gamer: Observable<Gamer>;
+
 
   private itemDoc: AngularFirestoreDocument<User>;
   item: Observable<User>;
@@ -66,12 +74,23 @@ export class ProfilePage implements OnInit {
 
     private sanitizer: DomSanitizer
   ) { 
+    this.user = this.userService.getCurrentUser();
+
 
     this.itemDoc = afs.doc<User>('users/aturing');
     this.item = this.itemDoc.valueChanges();
 
     this.itemsCollection = afs.collection<Gamer>('gamers');
     this.items = this.itemsCollection.valueChanges();
+
+    this.gamerDoc = this.userService.getGamerDoc();
+    this.gamer = this.gamerDoc.valueChanges();
+
+    this.gamer.subscribe((gamer: Gamer)=>{
+      this.gender = gamer.gender;
+      
+    })
+    
     // this.user = this.sharingService.fetch();
     // console.log(this.user)
 

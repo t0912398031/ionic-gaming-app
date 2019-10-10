@@ -22,6 +22,8 @@ ionic cordova plugin add cordova-plugin-googleplus --save --variable REVERSED_CL
 
 set GOOGLE_APPLICATION_CREDENTIALS=D:\download\gamer-republic-253301-firebase-adminsdk-qzb71-c740888ae9.json
 
+## Generate page
+ionic generate page pages/new page
 
 
 ## Cordova live-reload

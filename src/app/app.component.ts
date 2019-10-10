@@ -56,6 +56,11 @@ export class AppComponent {
       title: 'test',
       url: '/test',
       icon: 'settings'
+    },
+    {
+      title: 'userprofile',
+      url: '/userprofile/TMDz1cVAM7QagTPsU5aIJtlRzs52',
+      icon: 'settings'
     }
   ];
 
@@ -110,13 +115,11 @@ export class AppComponent {
 
           console.log("user exist");
           this.router.navigate(["/profile"]);
-          // this.locationTracker.startTrackingWeb().subscribe(data=>{
-          //   console.log(data);
-            
-          // })
+
           this.locationTracker.startTrackingWeb();
 
           this.userService.createUser(user);  
+          this.userService.updateUserLocation();
           
           // let currentUser = {
           //   uid: user.uid,
@@ -131,7 +134,7 @@ export class AppComponent {
           //   refreshToken: user.refreshToken
           // }
           // this.sharingService.save(currentUser);
-        this.sharingService.save(user);
+        // this.sharingService.save(user);
         
 
           // this.splashScreen.hide();

@@ -15,7 +15,7 @@ import { AlertController } from '@ionic/angular';
 export class EditprofilePage implements OnInit {
   private gamerDoc: AngularFirestoreDocument<Gamer>;
   private gamer: Observable<Gamer>;
-  private g: Gamer;
+  // private g: Gamer;
 
   private displayName;
   private email;
@@ -24,7 +24,7 @@ export class EditprofilePage implements OnInit {
   
   onChangeHandler($event) {
     this.gender = $event.target.value;
-    this.g.gender = $event.target.value;
+    // this.g.gender = $event.target.value;
   }
 
   private games: Array<Object>;
@@ -32,15 +32,28 @@ export class EditprofilePage implements OnInit {
   
   constructor(private userService: UserService,private alertController: AlertController) { 
     this.gamerDoc = this.userService.getGamerDoc();
-    this.gamer = this.userService.getGamer();
-    this.g = this.userService.getG();
+    this.gamer = this.gamerDoc.valueChanges();
+    // this.gamer = this.userService.getGamer();
+    // this.g = this.userService.getG();
 
-    this.games = this.g.games;
-    this.gender = this.g.gender;
+    // this.games = this.g.games;
+    // this.gender = this.g.gender;
 
-    this.displayName = this.g.displayName;
-    this.email = this.g.email;
-    this.phone = this.g.phone;
+    // this.displayName = this.g.displayName;
+    // this.email = this.g.email;
+    // this.phone = this.g.phone;
+
+    this.gamer.subscribe((gamer: Gamer)=>{
+      // self.g = gamer;
+      this.phone = gamer.phone;
+      this.displayName = gamer.displayName;
+      this.email = gamer.email;
+
+      this.games = gamer.games;
+      this.gender = gamer.gender;
+
+    })
+
 
   }
   test(){
