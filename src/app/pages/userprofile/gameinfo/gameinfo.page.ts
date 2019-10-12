@@ -10,8 +10,8 @@ export class GameinfoPage implements OnInit {
   id: string;
   private sub: any;
   private game;
-  private gameInfo;
-  private objectKeys = Object.keys;
+  gameInfo;
+  objectKeys = Object.keys;
   constructor(private router: Router) { }
 
   ngOnInit() {

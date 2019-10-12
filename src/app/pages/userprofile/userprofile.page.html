@@ -48,7 +48,7 @@
           <ion-label *ngIf="game.isChecked">{{game.name}}</ion-label>
         </ion-item> -->
         <div *ngFor="let game of games">
-          <ion-item *ngIf="game.isChecked" (click)="onViewDetails(game)" href="">
+          <ion-item *ngIf="game.isChecked" (click)="onViewDetails(game)" href="javascript:void(0)">
             <ion-label>{{game.name}}</ion-label>
           </ion-item>
         </div>

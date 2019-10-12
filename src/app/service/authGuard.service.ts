@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
 import { LocationTracker } from 'src/providers/location-tracker';
 import { Location } from '@angular/common';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
     constructor(private router: Router,
       private location: Location,
-      private locationTracker: LocationTracker) {
+      private locationTracker: LocationTracker,
+      private fireAuth: AngularFireAuth) {
 
     }
 
-    canActivate(route: ActivatedRouteSnapshot): boolean {
+    canActivate(route: ActivatedRouteSnapshot,): boolean {
 
         // console.log("route: " + route);
         if(route.url.toString()=='map'){
@@ -44,7 +46,8 @@ export class AuthGuardService implements CanActivate {
         // let authInfo = {
         //     authenticated: false
         // };
-        firebase.auth().onAuthStateChanged(user => {
+        this.fireAuth.auth.onAuthStateChanged(user => {
+        // firebase.auth().onAuthStateChanged(user => {
             if (user) {
               console.log("user exist");
             }

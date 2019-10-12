@@ -29,11 +29,11 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ProfilePage implements OnInit {
 
-  private user;
+  user;
   u: any
   data: any;
   watch: any;
-  private gender;
+  gender;
 
   googleLinked = false;
   fbLinked = false;
@@ -47,7 +47,7 @@ export class ProfilePage implements OnInit {
   private isEdit = false;
 
   private channelId = 'UCphmcGUje3ErRaZZuJo-4wQ';
-  private channelURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/live_stream?channel=' + this.channelId);
+  channelURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/live_stream?channel=' + this.channelId);
   
   private gamerDoc: AngularFirestoreDocument<Gamer>;
   gamer: Observable<Gamer>;
@@ -75,7 +75,7 @@ export class ProfilePage implements OnInit {
     private sanitizer: DomSanitizer
   ) { 
     this.user = this.userService.getCurrentUser();
-
+    
 
     this.itemDoc = afs.doc<User>('users/aturing');
     this.item = this.itemDoc.valueChanges();
@@ -357,13 +357,7 @@ export class ProfilePage implements OnInit {
       console.log(user);
     })
 
-// collection Usage
-    // let data = item.payload.doc.data();
-    //     const commentId = item.payload.doc.id;
   }
-
-
-
 
   
 }

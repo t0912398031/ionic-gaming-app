@@ -12,7 +12,7 @@
 
 <ion-content>
   <!-- <ion-item [routerDirection]="'root'" [routerLink]="[p.url]"> -->
-    <ion-button [routerDirection]="'root'" [routerLink]="['/editprofile']" routerDirection="forward" >
+    <ion-button [routerLink]="['/editprofile']" routerDirection="forward" >
       Go forward
     </ion-button>
 
@@ -31,7 +31,7 @@
 
 
 <ion-button color="primary" (click) ="testupdate()">testupdate</ion-button>
-<input placeholder="{{item.last}}" [(ngModel)]="data" >
+<!-- <input placeholder="{{item.last}}" [(ngModel)]="data" > -->
 
  {{user.uid}}
 

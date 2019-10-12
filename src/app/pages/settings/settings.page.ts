@@ -7,18 +7,20 @@ import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from "firebase/app";
 
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit {
-  private toggle;
+  private user;
+  toggle;
   private gamerDoc: AngularFirestoreDocument<Gamer>;
   private gamer: Observable<Gamer>;
 
-  private googleLinked;
-  private fbLinked;
+  googleLinked;
+  fbLinked;
 
   constructor(
     private userService:UserService,
@@ -43,8 +45,9 @@ export class SettingsPage implements OnInit {
     console.log(this.toggle)
   }
   ngOnInit() {
-    let user = this.userService.getCurrentUser();
-    user.providerData.forEach((e)=>{
+    this.user = this.userService.getCurrentUser();
+    // console.log(user.providerData[0].uid)
+    this.user.providerData.forEach((e)=>{
       if (e.providerId=="google.com") {
         this.googleLinked = true;
       } 
@@ -68,28 +71,34 @@ export class SettingsPage implements OnInit {
     }
     
   }
-
+  linkGoogle(){}
   linkFb(){
     // Creates the provider object.
     var provider = new firebase.auth.FacebookAuthProvider();
+    // var provider = new firebase.auth.GoogleAuthProvider();
+
     // You can add additional scopes to the provider:
     // provider.addScope('email');
     // provider.addScope('user_friends');
 
-    // auth.currentUser.linkWithRedirect(provider);
+    this.fireAuth.auth.currentUser.linkWithRedirect(provider);
+
+
     // Link with popup:
 
-    // firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
-    this.fireAuth.auth.currentUser.linkWithPopup(provider).then(function(result) {
-      console.log("successfully linked");
-      // The firebase.User instance:
-      var user = result.user;
-      // The Facebook firebase.auth.AuthCredential containing the Facebook
-      // access token:
-      var credential = result.credential;
-    }, function(error) {
-      // An error happened.
-    });
+ 
+    // this.fireAuth.auth.currentUser.linkWithPopup(provider).then(function(result) {
+    //   console.log("successfully linked");
+    //   // The firebase.User instance:
+    //   var user = result.user;
+    //   // The Facebook firebase.auth.AuthCredential containing the Facebook
+    //   // access token:
+    //   var credential = result.credential;
+    // }, function(error) {
+    //   // An error happened.
+    // });
+
+
 
     // firebase.auth().getRedirectResult().then(function(result) {
     //   if (result.credential) {
@@ -104,5 +113,27 @@ export class SettingsPage implements OnInit {
     //   // ...
     // });
   }
+
+  unlink(provider){
+  
+
+    this.user.unlink(provider).then(function() {
+      // Auth provider unlinked from account
+      console.log('Auth provider unlinked from account')
+
+      if (provider=="google.com") {
+        this.googleLinked = false;
+      } 
+      if (provider=="facebook.com") {
+        this.fbLinked = false;
+      } 
+    }).catch(function(error) {
+      // An error happened
+      console.log(error)
+    });
+
+  }
+
+  
 
 }

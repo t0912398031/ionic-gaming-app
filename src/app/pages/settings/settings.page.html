@@ -33,7 +33,7 @@
           <img src="http://placekitten.com/200/300" />
         </ion-avatar> -->
         <ion-button color="danger" fill="outline" slot="end" (click) ="linkGoogle()" *ngIf="!googleLinked">Link Google</ion-button>
-        <ion-button color="danger" fill="outline" slot="end" *ngIf="googleLinked" [disabled]="true">Google Linked!</ion-button>
+        <ion-button color="danger" slot="end" (clink)="unlink('google.com')"*ngIf="googleLinked" [disabled]="true">Unlink Google</ion-button>
       </ion-item>
 
       <ion-item>
@@ -42,7 +42,7 @@
           <img src="http://placekitten.com/200/300" />
         </ion-avatar> -->
         <ion-button color="primary" fill="outline" slot="end" (click) ="linkFb()" *ngIf="!fbLinked">Link Facebook</ion-button>
-        <ion-button color="primary" fill="outline" slot="end" *ngIf="fbLinked" [disabled]="true">Facebook Linked!</ion-button>
+        <ion-button color="primary" slot="end" (click) ="unlink('facebook.com')"*ngIf="fbLinked">Unlink Facebook</ion-button>
       </ion-item>
 
       

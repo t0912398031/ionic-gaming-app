@@ -41,7 +41,7 @@ export class TestPage implements OnInit {
 
 
    login() {
-    console.log(this.platform)
+    // console.log(this.platform)
     let params;
     if (this.platform.is('android')) {
       params = {

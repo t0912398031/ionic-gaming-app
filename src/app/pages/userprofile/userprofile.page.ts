@@ -15,11 +15,11 @@ export class UserprofilePage implements OnInit, OnDestroy {
 
   id: string;
   private sub: any;
-  private gender;
-  private games;
+  gender;
+  games;
 
   private gamerDoc: AngularFirestoreDocument<Gamer>;
-  private gamer: Observable<Gamer>;
+  gamer: Observable<Gamer>;
   constructor(
     private router: Router,
     private route: ActivatedRoute,

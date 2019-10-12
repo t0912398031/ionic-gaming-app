@@ -11,7 +11,7 @@ import { LocationTracker } from '../providers/location-tracker';
 
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 // import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 
 
@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { SharingService } from './service/sharing.service';
 import { UserService } from './service/user.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+// import { google } from '@agm/core/services/google-maps-types';
 
 @Component({
   selector: 'app-root',
@@ -74,10 +75,10 @@ export class AppComponent {
     private router: Router,
     private sharingService: SharingService,
     private userService: UserService,
-    // private location,
+
     private fireAuth: AngularFireAuth,
     private locationTracker: LocationTracker
-    // private backgroundGeolocation: BackgroundGeolocation
+
   ) {
     this.initializeApp();
   }
@@ -97,8 +98,9 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      
+      
+    
       // if (this.platform.is('cordova')) { 
       //   // make your native API calls 
       // } else { 
@@ -120,47 +122,17 @@ export class AppComponent {
 
           this.userService.createUser(user);  
           this.userService.updateUserLocation();
-          
-          // let currentUser = {
-          //   uid: user.uid,
-          //   phoneNumber: user.phoneNumber,
-          //   photoURL: user.photoURL,
-          //   creationTime: user.metadata.creationTime,
-          //   lastSignInTime: user.metadata.lastSignInTime,
-          //   isAnonymous: user.isAnonymous,
-          //   email: user.email,
-          //   displayName: user.displayName,
-          //   emailVerified: user.emailVerified,
-          //   refreshToken: user.refreshToken
-          // }
-          // this.sharingService.save(currentUser);
-        // this.sharingService.save(user);
-        
-
-          // this.splashScreen.hide();
+      
         }
         else {
           console.log("no user found");
           this.router.navigate(["/login"]);
-          // this.router.navigate(["/test"]);
           // this.splashScreen.hide();
         }
       })
 
-      // this.fireAuth.auth.onAuthStateChanged(user => {
-      //   if (user) {
-      //     console.log("user exist");
-      //     this.router.navigate(["/profile"]);
-      //     this.splashScreen.hide();
-      //   }
-      //   else {
-      //     console.log("no user found");
-      //     this.router.navigate(["/home"]);
-      //     this.splashScreen.hide();
-      //   }
-      // })
       this.statusBar.styleDefault();
-
+      this.splashScreen.hide();
       // const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
       // document.body.classList.toggle('dark', false);
     });

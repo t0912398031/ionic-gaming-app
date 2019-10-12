@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 // import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 // import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation/ngx';

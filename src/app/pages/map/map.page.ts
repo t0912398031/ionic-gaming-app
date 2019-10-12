@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Geolocation } from '@ionic-native/geolocation/ngx';
+// import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { MapsAPILoader } from '@agm/core';
 import { SharingService } from 'src/app/service/sharing.service';
 import { User } from 'src/app/model/user';
@@ -18,7 +18,7 @@ declare var google;
 export class MapPage implements OnInit {
 
   constructor(
-    private geolocation: Geolocation,
+    // private geolocation: Geolocation,
     private mapsAPILoader: MapsAPILoader,
     private sharingService: SharingService,
     public locationTracker: LocationTracker,

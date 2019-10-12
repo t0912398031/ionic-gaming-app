@@ -17,17 +17,19 @@ export class EditprofilePage implements OnInit {
   private gamer: Observable<Gamer>;
   // private g: Gamer;
 
-  private displayName;
-  private email;
-  private phone;
-  private gender;
+  displayName;
+  email;
+  phone;
+  gender;
+
+  games: Array<Object>;
   
   onChangeHandler($event) {
     this.gender = $event.target.value;
     // this.g.gender = $event.target.value;
   }
 
-  private games: Array<Object>;
+  
 
   
   constructor(private userService: UserService,private alertController: AlertController) { 
