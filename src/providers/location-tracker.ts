@@ -4,7 +4,7 @@ import { Injectable, NgZone } from '@angular/core';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
-import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation/ngx';
+// import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationEvents, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation/ngx';
 // import { UserService } from 'src/app/service/user.service';
 
 // import 'rxjs/add/operator/filter';
@@ -31,7 +31,7 @@ export class LocationTracker {
 
   constructor(
     //   public zone: NgZone,
-      private backgroundGeolocation: BackgroundGeolocation,
+      // private backgroundGeolocation: BackgroundGeolocation,
       private geolocation: Geolocation,
       // private userService: UserService
     
@@ -43,31 +43,31 @@ export class LocationTracker {
 
     // Background Tracking
 
-    let config: BackgroundGeolocationConfig = {
-        desiredAccuracy: 10,
-        stationaryRadius: 20,
-        distanceFilter: 10, 
-        debug: true,
-        interval: 2000,
-        stopOnTerminate: false // enable this to clear background location settings when the app terminates 
-      };
+    // let config: BackgroundGeolocationConfig = {
+    //     desiredAccuracy: 10,
+    //     stationaryRadius: 20,
+    //     distanceFilter: 10, 
+    //     debug: true,
+    //     interval: 2000,
+    //     stopOnTerminate: false // enable this to clear background location settings when the app terminates 
+    //   };
 
 
-      this.backgroundGeolocation.configure(config)
-      .then(() => {
+    //   this.backgroundGeolocation.configure(config)
+    //   .then(() => {
     
-        this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location: BackgroundGeolocationResponse) => {
-          console.log(location);
-          this.lat = location.latitude;
-          this.lng = location.longitude;
-          this.sendGPS(location);
-          // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
-          // and the background-task may be completed.  You must do this regardless if your operations are successful or not.
-          // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-          this.backgroundGeolocation.finish(); // FOR IOS ONLY
-        });
+    //     this.backgroundGeolocation.on(BackgroundGeolocationEvents.location).subscribe((location: BackgroundGeolocationResponse) => {
+    //       console.log(location);
+    //       this.lat = location.latitude;
+    //       this.lng = location.longitude;
+    //       this.sendGPS(location);
+    //       // IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
+    //       // and the background-task may be completed.  You must do this regardless if your operations are successful or not.
+    //       // IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+    //       this.backgroundGeolocation.finish(); // FOR IOS ONLY
+    //     });
     
-      });
+    //   });
     
 
 
@@ -116,10 +116,10 @@ export class LocationTracker {
 
   stopTracking() {
 
-    console.log('stopTracking');
+    // console.log('stopTracking');
 
-    this.backgroundGeolocation.finish();
-    this.watch.unsubscribe();
+    // this.backgroundGeolocation.finish();
+    // this.watch.unsubscribe();
   }
 
 

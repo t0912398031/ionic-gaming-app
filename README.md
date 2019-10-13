@@ -42,6 +42,7 @@ ionic cordova run browser -l
 ionic cordova emulate android
 
 ionic cordova run <ios or android> --device -l --debug
+ionic cordova run android --device -l
 ## Cordova remove
 
 cordova plugin list

@@ -1,7 +1,7 @@
 import { Injectable, } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { first, take } from 'rxjs/operators';
+// import { first, take } from 'rxjs/operators';
 import { Gamer } from 'src/app/model/gamer';
 import * as firebase from "firebase/app";
 import { LocationTracker } from 'src/providers/location-tracker';

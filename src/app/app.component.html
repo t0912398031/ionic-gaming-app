@@ -1,12 +1,12 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu type="overlay" contentId="my-content">
+  <ion-split-pane>
+    <ion-menu type="overlay">
       <ion-header>
         <ion-toolbar>
           <ion-title>Menu</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-content id="my-content">
+      <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngIf="!u">
             <ion-item [routerDirection]="'root'" [routerLink]="'/login'" >
@@ -36,7 +36,7 @@
         </ion-list>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>
 

@@ -56,6 +56,7 @@ export class TestPage implements OnInit {
       .then((response) => {
         this.test=1;
         const { idToken, accessToken } = response
+        console.log(response)
         this.onLoginSuccess(idToken, accessToken);
       }).catch((error) => {
         console.log(error)
@@ -80,7 +81,11 @@ export class TestPage implements OnInit {
   }
 
 
-
+  test2(){
+    this.google.login({})
+  .then(res => console.log(res))
+  .catch(err => console.error(err));
+  }
 
 
   
