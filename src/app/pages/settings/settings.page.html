@@ -7,18 +7,9 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content>
 
-  
-
-</ion-content> -->
-
-
-<!-- <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons> -->
-
-
+    <!-- <ion-button color="primary" (click) ="test()">{{(gamer | async)?.theme}}</ion-button> -->
+    
 <ion-content class="main-content">
     <ion-list>
       <ion-item lines="full">
@@ -26,25 +17,35 @@
         <ion-label>
           Toggle Dark Theme
         </ion-label>
-        <ion-toggle id="themeToggle" slot="end" [(ngModel)]="toggle" (ngModelChange)="enableDark()"></ion-toggle>
+        <ion-toggle id="themeToggle" slot="end" [(ngModel)]="toggle" (ngModelChange)="enableDark()" ></ion-toggle>
       </ion-item>
     </ion-list>
 
+    
     <ion-list>
       <ion-list-header>
-        Recent Conversations
+        Link with Other Account
       </ion-list-header>
 
       <ion-item>
-        <ion-avatar slot="start">
+        <ion-icon id="googleicon" slot="start" name="logo-google"></ion-icon>
+        <!-- <ion-avatar slot="start">
           <img src="http://placekitten.com/200/300" />
-        </ion-avatar>
-        <ion-label>
-          <h2>Finn</h2>
-          <h3>I'm a big deal</h3>
-          <p>Listen, I've had a pretty messed up day...</p>
-        </ion-label>
+        </ion-avatar> -->
+        <ion-button color="danger" fill="outline" slot="end" (click) ="linkGoogle()" *ngIf="!googleLinked">Link Google</ion-button>
+        <ion-button color="danger" slot="end" (clink)="unlink('google.com')"*ngIf="googleLinked" [disabled]="true">Unlink Google</ion-button>
       </ion-item>
+
+      <ion-item>
+        <ion-icon id="facebookicon" slot="start" name="logo-facebook"></ion-icon>
+        <!-- <ion-avatar slot="start">
+          <img src="http://placekitten.com/200/300" />
+        </ion-avatar> -->
+        <ion-button color="primary" fill="outline" slot="end" (click) ="linkFb()" *ngIf="!fbLinked">Link Facebook</ion-button>
+        <ion-button color="primary" slot="end" (click) ="unlink('facebook.com')"*ngIf="fbLinked">Unlink Facebook</ion-button>
+      </ion-item>
+
+      
 
       <ion-item lines="full">
         <ion-avatar slot="start">
@@ -52,7 +53,7 @@
         </ion-avatar>
         <ion-label>
           <h2>Han</h2>
-          <h3>Look, kid...</h3>
+
           <p>I've got enough on my plate as it is, and I...</p>
         </ion-label>
       </ion-item>

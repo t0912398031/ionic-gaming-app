@@ -14,14 +14,18 @@ import { AngularFireModule } from '@angular/fire';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { environment } from '../environments/environment';
 
-// import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { SharingService } from './service/sharing.service';
+import { UserService } from './service/user.service';
+import { AuthGuardService } from './service/authGuard.service';
 
 // import { AgmCoreModule } from '@agm/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { LocationTracker } from '../providers/location-tracker';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -55,7 +59,12 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     AngularFirestore,
 
     SharingService,
-    Geolocation
+    UserService,
+    AuthGuardService,
+
+    Geolocation,
+    LocationTracker,
+    BackgroundGeolocation
   ],
   bootstrap: [AppComponent]
 })

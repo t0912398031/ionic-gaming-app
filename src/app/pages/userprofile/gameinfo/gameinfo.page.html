@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>Gameinfo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <div *ngFor="let key of objectKeys(gameInfo)">
+        <ion-item>     
+          <div class="capitalize">
+              {{key}}
+          </div>
+          
+          <div class="item-note" slot="end">
+            {{gameInfo[key]}}
+          </div>
+        </ion-item>
+      </div>
+      </ion-list>
+
+      <!-- <ion-list>
+        <div ng-repeat="(key, val) in this.gameInfo">
+          <ion-item >
+            
+            {{key}}
+            <div class="item-note" slot="end">
+              {{val}}
+            </div>
+          </ion-item>
+        </div>
+        </ion-list> -->
+
+      
+</ion-content>

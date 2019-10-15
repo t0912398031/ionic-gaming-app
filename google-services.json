@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "901598795613",
+    "firebase_url": "https://gamer-republic-253301.firebaseio.com",
+    "project_id": "gamer-republic-253301",
+    "storage_bucket": "gamer-republic-253301.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901598795613:android:fd8a328c1585756b66bab4",
+        "android_client_info": {
+          "package_name": "com.lipang.GamerRepublic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901598795613-fa6233vvj6hhj6hieauc9te4q4boeq7q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lipang.GamerRepublic",
+            "certificate_hash": "b4d68743aab9728537cd699143a915fb888770e0"
+          }
+        },
+        {
+          "client_id": "901598795613-cgdalt5l4sh0nsjoka1gn1f5kjnmohok.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLE7ZSNj0n25Lxo07VJF_Ue-ok69527qg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901598795613-06i3pc6ieskmd5555om2577hp7jvj658.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "901598795613-p5tlkvidrdpbq8tt2knfqmang2lvj1op.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "GamerRepublic"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

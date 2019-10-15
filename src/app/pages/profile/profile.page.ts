@@ -8,19 +8,19 @@ import * as firebase from "firebase/app";
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { SharingService } from '../../service/sharing.service';
+import { UserService } from '../../service/user.service';
 import { User } from 'src/app/model/user';
 
+import { AppComponent } from '../../app.component';
+import { Gamer } from 'src/app/model/gamer';
+import { LocationTracker } from 'src/providers/location-tracker';
 
-//   export interface User {
-//   first: string,
-//   last: string,
-//   middle: string,
-//   born: number,
-//   googleIdToken: string
-// }
+import {DomSanitizer} from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-profile',
@@ -28,33 +28,81 @@ import { User } from 'src/app/model/user';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user: any = {}
+
+  user;
   u: any
   data: any;
+  watch: any;
+  gender;
 
   googleLinked = false;
   fbLinked = false;
 
 
-  latitude = -28.68352;
-  longitude = -147.20785;
+  latitude;
+  longitude;
   mapType = 'roadmap';
 
+  private cardContent = '7 years League of Legends experience, 1 year Arena of Valor. Ranked top 1 NA in season 11';
+  private isEdit = false;
+
+  private channelId = 'UCphmcGUje3ErRaZZuJo-4wQ';
+  channelURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/live_stream?channel=' + this.channelId);
   
+  private gamerDoc: AngularFirestoreDocument<Gamer>;
+  gamer: Observable<Gamer>;
+
+
   private itemDoc: AngularFirestoreDocument<User>;
   item: Observable<User>;
+
+  private itemsCollection: AngularFirestoreCollection<Gamer>;
+  items: Observable<Gamer[]>;
+  
+
   constructor(
     private router: Router,
+    private appComponent: AppComponent,
     private fireAuth: AngularFireAuth,
 
     private http: HttpClient,
     private afs: AngularFirestore,
 
-    private sharingService: SharingService
+    private sharingService: SharingService,
+    private userService: UserService,
+    private locationTracker: LocationTracker,
+
+    private sanitizer: DomSanitizer
   ) { 
+    this.user = this.userService.getCurrentUser();
+    
 
     this.itemDoc = afs.doc<User>('users/aturing');
     this.item = this.itemDoc.valueChanges();
+
+    this.itemsCollection = afs.collection<Gamer>('gamers');
+    this.items = this.itemsCollection.valueChanges();
+
+    this.gamerDoc = this.userService.getGamerDoc();
+    this.gamer = this.gamerDoc.valueChanges();
+
+    this.gamer.subscribe((gamer: Gamer)=>{
+      this.gender = gamer.gender;
+      
+    })
+    
+    // this.user = this.sharingService.fetch();
+    // console.log(this.user)
+
+    // afs.firestore.doc('/gamers/' + this.user.uid).get()
+    // // afs.firestore.collection('users').doc('aturin').get()
+    //   .then(docSnapshot => {
+    //     if (docSnapshot.exists) {
+    //       console.log("doc exist")
+    //     } else {
+    //       console.log("doc not exist")
+    //     }
+    //   });
   }
 
   testShare(){
@@ -104,14 +152,15 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.getRedirectGoogle();
     
-    // this.sharingService.fetchToken().then((e) => {
-    //   console.log(e);
-    // })
+    
+    
+
     let self = this;
     this.fireAuth.auth.onAuthStateChanged(user => {
       if (user) {
+        self.user = user;
         
-
+        // console.log(user.providerData)
         user.providerData.forEach((e)=>{
           if (e.providerId=="google.com") {
             self.googleLinked = true;
@@ -122,8 +171,44 @@ export class ProfilePage implements OnInit {
         })
         
 
-    //     console.log(firebase.auth().currentUser);
-    // console.log(this.fireAuth.auth.currentUser);
+        // this.userService.createUser(user);  
+
+        // this.watch = this.locationTracker.getPosition();
+        // this.watch.subscribe(position => {
+        //   self.latitude = position.coords.latitude;
+        //   self.longitude = position.coords.longitude;
+        //   // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+        //   });
+        
+          
+
+    // this.afs.firestore.doc('/gamers/' + user.uid).get()
+    // // afs.firestore.collection('users').doc('aturin').get()
+    //   .then(docSnapshot => {
+    //     if (docSnapshot.exists) {
+    //       console.log("doc exist")
+    //     } else {
+    //       console.log("doc not exist")
+
+    //       let gameData: Array<string> = ['League of Legends', 'Arena of Valor', 'PUBG']
+
+    //         let gamer: Gamer = {
+    //           uid: user.uid,
+    //           displayName: user.displayName,
+    //           first: null,
+    //           last: null,
+    //           middle: null,
+    //           email: user.email,
+    //           phone: user.phoneNumber,
+    //           born: 1,
+    //           games: gameData,
+    //           location: new firebase.firestore.GeoPoint( self.latitude, self.longitude)
+    //           };
+    //         // console.log(gamer)
+    //       self.itemsCollection.doc(user.uid).set(gamer);
+
+    //     }
+    //   });
 
     // user.providerData.forEach(function (profile) {
     //   console.log("Sign-in provider: " + profile.providerId);
@@ -133,54 +218,35 @@ export class ProfilePage implements OnInit {
     //   console.log("  Photo URL: " + profile.photoURL);
     // });
      
-        // console.log(this.u);
-        this.user = {
-          uid: user.uid,
-          phoneNumber: user.phoneNumber,
-          photoURL: user.photoURL,
-          creationTime: user.metadata.creationTime,
-          lastSignInTime: user.metadata.lastSignInTime,
-          isAnonymous: user.isAnonymous,
-          email: user.email,
-          displayName: user.displayName,
-          emailVerified: user.emailVerified,
-          refreshToken: user.refreshToken
-        }
-        this.sharingService.save(this.user);
-
       }
       else {
         this.router.navigate(["/login"]);
       }
     })
-
+    
     
   }
 
   getRedirectGoogle(){
     let self = this;
+    
     firebase.auth().getRedirectResult()
-    // firebase.auth().signInWithPopup(provider)
     .then(function(result) {
+
+      
       if (result.credential) {
+        console.log("google redirect!")
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = (<any>result).credential.accessToken;
         var idToken = (<any>result).credential.idToken;
         // ...
-
-
-        // console.log("result: " + JSON.stringify(result));
-
-        // console.log("token: "+token);
-        // console.log("idtoken: "+idToken);
-
-
+        console.log(result)
         // this.sharingService.saveToken(token);
 
 
         self.itemDoc.update({
-          googleIdToken: idToken,
-          location: new firebase.firestore.GeoPoint(42.427292, -71.074217)
+          // googleIdToken: idToken,
+          // location: new firebase.firestore.GeoPoint(42.427292, -71.074217)
         });
 
       }
@@ -205,8 +271,11 @@ export class ProfilePage implements OnInit {
   }
 
   logout() {
+    this.appComponent.u = false;
     this.fireAuth.auth.signOut().then(() => {
+
       this.router.navigate(["/login"]);
+
     })
   }
 
@@ -270,7 +339,25 @@ export class ProfilePage implements OnInit {
     this.itemDoc.update({
       last: this.data
     });
+    // console.log(JSON.stringify(this.itemDoc));
+
+    
+  // let getDoc = this.itemDoc.get().toPromise()
+  // .then(doc => {
+  //   if (!doc.exists) {
+  //     console.log('No such document!');
+  //   } else {
+  //     console.log('Document data:', doc.data());
+  //   }
+  // })
+  // .catch(err => {
+  //   console.log('Error getting document', err);
+  // });
+    this.item.subscribe((user: User) => {
+      console.log(user);
+    })
 
   }
 
+  
 }

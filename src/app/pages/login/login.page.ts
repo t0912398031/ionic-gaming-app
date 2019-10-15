@@ -23,34 +23,38 @@ export class LoginPage implements OnInit {
     var provider = new firebase.auth.GoogleAuthProvider();
 
     // Optional: Specify additional OAuth 2.0 scopes that you want to request from the authentication provider. To add a scope, call addScope.
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
     
     // firebase.auth().languageCode = 'pt';
 
     // To apply the default browser preference instead of explicitly setting it.
     // firebase.auth().useDeviceLanguage();
+    provider.setCustomParameters({
 
+      'access_type': 'offline',
+      'state': 'state_parameter_passthrough_value',
+      'include_granted_scopes': 'true',
+      'response_type': 'code'
+
+      // access_type: 'offline',
+      // state: 'state_parameter_passthrough_value',
+      // include_granted_scopes: 'true',
+      // response_type: 'code'
+    });
     // To sign in by redirecting to the sign-in page, call signInWithRedirect
     firebase.auth().signInWithRedirect(provider);
 
-    // Then, you can also retrieve the Google provider's OAuth token by calling getRedirectResult when your page loads:
-    // firebase.auth().getRedirectResult()
-    // // firebase.auth().signInWithPopup(provider)
-    // .then(function(result) {
+    // firebase.auth().getRedirectResult().then(function(result) {
+    //   // console.log((<any>result).code)
+    //   console.log(result)
     //   if (result.credential) {
     //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     var token = (<any>result).credential.accessToken;
-    //     var idToken = (<any>result).credential.getIdTokens;
+    //     // var token = result.credential.accessToken;
     //     // ...
-
-    //     console.log(token);
-    //     console.log(idToken);
-    //     this.sharingService.saveToken("token");
     //   }
     //   // The signed-in user info.
-    //   var user = result.user;
-    //   // console.log(user);
+    //   // var user = result.user;
     // }).catch(function(error) {
     //   // Handle Errors here.
     //   var errorCode = error.code;
@@ -61,6 +65,7 @@ export class LoginPage implements OnInit {
     //   var credential = error.credential;
     //   // ...
     // });
+
   }
 
 
@@ -129,23 +134,7 @@ export class LoginPage implements OnInit {
   //   .subscribe((token: string) => console.log(`Got a new token ${token}`));
   // }
 
-  // getUserProfile(){
-  //   var user = firebase.auth().currentUser;
-  //   var name, email, photoUrl, uid, emailVerified;
-
-  //   if (user != null) {
-  //     console.log("user exist");
-  //     name = user.displayName;
-  //     email = user.email;
-  //     photoUrl = user.photoURL;
-  //     emailVerified = user.emailVerified;
-  //     uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-  //                     // this value to authenticate with your backend server, if
-  //                     // you have one. Use User.getToken() instead.
-
-  //     console.log(name, email, photoUrl, emailVerified, uid);
-  //   }
-  // }
+  
 
 
   
