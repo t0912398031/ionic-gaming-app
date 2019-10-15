@@ -1,6 +1,6 @@
 # Gaming Republic
 
-This is a budget tracker web app, developed by Chung-Yang Li. 
+This is a cross platform social app for gamers, developed by Chung-Yang Li. 
 
 This project was generated with ionic v4.7.3
 

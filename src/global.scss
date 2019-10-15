@@ -36,16 +36,36 @@
 
 
 // body {
-//   background: url(/assets/bg1.jpg) no-repeat center/cover fixed;
+//   background: url(/assets/bg3-3.png) no-repeat center/cover fixed;
+
+
+//   --ion-text-color: black;
+
+//   --ion-text-color-rgb: 160, 82, 45;
+//   --ion-toolbar-background: none;
+  
 // }
 
 
-ion-content {
-  --background: none;
-  --ion-toolbar-background: none;
-  --ion-item-background: none;
-}
+// ion-menu {
+//   --background: rgba(255,255,255, 0.5)    
+// }
 
+// ion-content {
+//   --background: none;
+
+//   --ion-item-background: none;
+
+// }
+
+
+ion-content{
+    --background: url(/assets/bg3-3.png); 
+    --background-repeat: no-repeat;
+    --background-size: cover;  
+    --ion-item-background: none;
+    --ion-toolbar-background: none;
+}
 
 
 /*
@@ -54,7 +74,7 @@ ion-content {
  */
 
  body.dark {
-    background: url(/assets/bg1.jpg) no-repeat center/cover fixed;
+    // background: url(/assets/bg1.jpg) no-repeat center/cover fixed;
 
     --ion-color-primary: #428cff;
     --ion-color-primary-rgb: 66,140,255;
@@ -118,11 +138,25 @@ ion-content {
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
+    // ion-menu {
+    //   --background: rgba(0,0,0, 0.9)    
+    // }
+    // ion-content {
+    //   --background: none;
+    //   --ion-item-background: none;
+    // }
+ 
 
 
-    --background: none;
-    --ion-toolbar-background: none;
-    --ion-item-background: none;
+
+
+    ion-content{
+        --background: url(/assets/bg1.jpg); 
+        --background-repeat: no-repeat;
+        --background-size: cover;  
+        --ion-item-background: none;
+        // --ion-toolbar-background: none;
+      }
   }
   
   /*
@@ -170,7 +204,7 @@ ion-content {
    * -------------------------------------------
    */
   
-  .md body.dark {
+  .md body.dark {    
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
   

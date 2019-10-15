@@ -3,7 +3,7 @@
     <name>GamerRepublic</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="t0912398031@gmail.com" href="http://ionicframework.com/">Chung-Yang Li</author>
-    <content original-src="index.html" src="http://localhost:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -107,8 +107,8 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-firebasex" spec="latest" />
     <plugin name="cordova-plugin-googleplus" source="npm">
-        <plugin name="cordova-plugin-firebasex" spec="latest" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.fa6233vvj6hhj6hieauc9te4q4boeq7q.901598795613" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="901598795613-cgdalt5l4sh0nsjoka1gn1f5kjnmohok.apps.googleusercontent.com" />

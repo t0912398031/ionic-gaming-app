@@ -7,6 +7,7 @@ import { SharingService } from 'src/app/service/sharing.service';
 import { User } from 'src/app/model/user';
 
 import { LocationTracker } from '../../../providers/location-tracker';
+import { UserService } from 'src/app/service/user.service';
 declare var google;
 
 
@@ -21,6 +22,7 @@ export class MapPage implements OnInit {
     // private geolocation: Geolocation,
     private mapsAPILoader: MapsAPILoader,
     private sharingService: SharingService,
+    private userService: UserService,
     public locationTracker: LocationTracker,
     private router: Router
     ) { 
@@ -46,28 +48,49 @@ export class MapPage implements OnInit {
 
 
   getLocations(): Array<{uid: string, latitude: number, longitude: number, iconUrl: string }> {
+    // let citiesRef = db.collection('cities');
+    // let query = citiesRef.where('latitude', '==', 'CA').where('population', '<', 1000000).get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('No matching documents.');
+    //       return;
+    //     }  
+    
+    //     snapshot.forEach(doc => {
+    //       console.log(doc.id, '=>', doc.data());
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
+  
+
     return [
       { 'uid': 'TMDz1cVAM7QagTPsU5aIJtlRzs52', 'latitude': 42.4165744, 'longitude': -71.066963, 'iconUrl': './assets/icon/Leagueicon.png'},
       { 'uid': 'tF96P4qpFLVfKhxukQ8iOCeq4P72', 'latitude': 42.395147, 'longitude': -71.067963, 'iconUrl': './assets/icon/Leagueicon.png'},
       { 'uid': '3', 'latitude': 42.395147, 'longitude': -71.068963, 'iconUrl': './assets/icon/Leagueicon.png'},
     ];
   }
+  ngOnDestroy(){
+    this.watch.unsubscribe();
+  }
 
   ngOnInit() {
-    // this.latitude = this.locationTracker.latitude;
-    // this.longitude = this.locationTracker.longitude;
-    // this.watch = this.locationTracker.getPosition();
-    // this.watch.subscribe(position => {
-    //   this.latitude = position.coords.latitude;
-    //   this.longitude = position.coords.longitude;
-    //   // console.log(position.coords.latitude + ' ' + position.coords.longitude);
-    //   });
-    this.latitude = this.locationTracker.getLatitude();
-    this.longitude = this.locationTracker.getLongitude();
 
-    this.user = this.sharingService.fetch();
+    this.watch = this.locationTracker.getWatch().subscribe(position => {
+      this.latitude = position.coords.latitude;
+      this.longitude = position.coords.longitude;
+      // console.log(position.coords.latitude + ' ' + position.coords.longitude);
+      // this.userService.updateUserLocation(position.coords.latitude, position.coords.longitude)
+
+    });
+
+    // this.latitude = this.locationTracker.getLatitude();
+    // this.longitude = this.locationTracker.getLongitude();
+
+    // this.user = this.sharingService.fetch();
     // console.log(this.user)
-    this.label = "M"
+    this.label = "Me"
 
 
     this.markers = this.getLocations();
@@ -86,8 +109,15 @@ export class MapPage implements OnInit {
   }
 
   // Type : "roadmap" | "hybrid" | "satellite" | "terrain" | string
-
+  create(){
+    this.userService.createPoint('TMDz1cVAM7QagTPsU5aIJtlRzs52', 'Pang', this.latitude, this.longitude);
+  
+  }
   locate(){
+    // this.userService.createPoint('TMDz1cVAM7QagTPsU5aIJtlRzs52', 'Pang', this.latitude, this.longitude);
+    this.userService.getGamersByRange(1,2,3);
+    
+    
     // this.geolocation.getCurrentPosition().then((resp) => {
     //   // resp.coords.latitude
     //   // resp.coords.longitude

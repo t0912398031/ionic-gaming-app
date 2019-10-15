@@ -8,6 +8,9 @@ import { LocationTracker } from 'src/providers/location-tracker';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 
+import * as geofirex from 'geofirex';
+import { toGeoJSON } from 'geofirex'
+
 @Injectable()
 export class UserService {
 
@@ -34,9 +37,11 @@ export class UserService {
 
  
 
-    private itemsCollection: AngularFirestoreCollection<Gamer>;
-    private items: Observable<Gamer[]>;
+    private gamersCollection: AngularFirestoreCollection<Gamer>;
+    private gamers: Observable<Gamer[]>;
 
+    geo = geofirex.init(firebase);
+    points: Observable<any>;
 
     constructor(
         private router: Router,
@@ -44,8 +49,8 @@ export class UserService {
         private afs: AngularFirestore,
         private locationTracker: LocationTracker
     ) {
-        this.itemsCollection = afs.collection<Gamer>('gamers');
-        this.items = this.itemsCollection.valueChanges();
+        this.gamersCollection = afs.collection<Gamer>('gamers');
+        this.gamers = this.gamersCollection.valueChanges();
 
     
         // this.watch = this.locationTracker.getWatch();
@@ -147,7 +152,7 @@ export class UserService {
                         theme:'dark'
                     };
                     // console.log(gamer)
-                    this.itemsCollection.doc(user.uid).set(gamer)
+                    this.gamersCollection.doc(user.uid).set(gamer)
                     .catch(err => {
                         console.log("create user fail" );
                     });
@@ -181,7 +186,7 @@ export class UserService {
     
                     };
 
-                    this.itemsCollection.doc(user.uid).update({
+                    this.gamersCollection.doc(user.uid).update({
                         gameInfo: gameInfo
                     })
                     .catch(err => {
@@ -246,6 +251,63 @@ export class UserService {
 
 
 
+    }
+    createPoint(uid, displayName, lat, lng) {
+        let collection = this.geo.collection('locations')
+    
+        // Use the convenience method
+        // uid = '123';
+        // displayName = 'Pang'
+        // // collection.setPoint('my-place', 38,-119)
+        // collection.setPoint(uid, displayName, 80, 0)
+
+    
+        // Or be a little more explicit 
+        const point = this.geo.point(0, 0)
+        collection.setDoc('my-place7', { position: point.data })
+        // collection.add({name: 'my-place2',  position: point.data });
+      }
+
+    getGamersByRange(lat, lon, range){
+        
+    // let maxlat = lat+range;
+    // let minlat = lat-range;
+    // let maxlon = lon+range;
+    // let minlon = lon-range;
+    //     let query = this.gamersCollection.ref.where('location', '<', 'CA').where('population', '<', 1000000).get()
+    //   .then(snapshot => {
+    //     if (snapshot.empty) {
+    //       console.log('No matching documents.');
+    //       return;
+    //     }  
+    
+    //     snapshot.forEach(doc => {
+    //       console.log(doc.id, '=>', doc.data());
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
+
+    const collection = this.geo.collection('locations')
+    collection.data().subscribe(data =>
+        console.log(data)
+    )
+    // collection.snapshot().subscribe(data =>
+    //     console.log(data)
+    // )
+  
+    const center = this.geo.point(0, 0);
+    const radius = 100;
+    const field = 'position';
+
+    this.points = collection.within(center, radius, field);
+
+    this.points.subscribe(console.log)
+
+    // const query = this.geo.collection('locations').within(center, radius, field)
+    // this.points = query.pipe( toGeoJSON('point') )
+    
     }
 
 
