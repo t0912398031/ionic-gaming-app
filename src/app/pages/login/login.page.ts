@@ -49,10 +49,7 @@ export class LoginPage implements OnInit {
     });
 
     // To sign in by redirecting to the sign-in page, call signInWithRedirect
-    firebase.auth().signInWithRedirect(provider)
-    .then(result=>{
-      this.router.navigate(["/map"]);
-    });
+    firebase.auth().signInWithRedirect(provider);
 
    
     // firebase.auth().getRedirectResult().then(function(result) {
