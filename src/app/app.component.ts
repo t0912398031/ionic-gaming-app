@@ -27,7 +27,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public appPages = [
+  public appPages1 = [
     {
       title: 'Home',
       url: '/home',
@@ -38,6 +38,13 @@ export class AppComponent {
       url: '/list',
       icon: 'list'
     },
+    {
+      title: 'Login',
+      url: '/login',
+      icon: 'person'
+    },
+  ];
+  public appPages = [
     {
       title: 'profile',
       url: '/profile',
@@ -64,7 +71,7 @@ export class AppComponent {
       icon: 'settings'
     }
   ];
-
+  
   public u = false;
   
   constructor(
@@ -125,6 +132,8 @@ export class AppComponent {
       
         }
         else {
+          this.u = false;
+
           console.log("no user found");
           this.router.navigate(["/login"]);
           // this.splashScreen.hide();
