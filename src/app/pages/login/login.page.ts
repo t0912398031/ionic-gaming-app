@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from "firebase/app";
 
 import { SharingService } from '../../service/sharing.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,10 +13,14 @@ import { SharingService } from '../../service/sharing.service';
 export class LoginPage implements OnInit {
 
   constructor(
+    private router: Router,
     private sharingService: SharingService
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit() {
+    
   }
 
   firebaseGoogleSigninSDK(){
@@ -42,12 +47,17 @@ export class LoginPage implements OnInit {
       // include_granted_scopes: 'true',
       // response_type: 'code'
     });
-    // To sign in by redirecting to the sign-in page, call signInWithRedirect
-    firebase.auth().signInWithRedirect(provider);
 
+    // To sign in by redirecting to the sign-in page, call signInWithRedirect
+    firebase.auth().signInWithRedirect(provider)
+    .then(result=>{
+      this.router.navigate(["/map"]);
+    });
+
+   
     // firebase.auth().getRedirectResult().then(function(result) {
     //   // console.log((<any>result).code)
-    //   console.log(result)
+    //   // console.log(result)
     //   if (result.credential) {
     //     // This gives you a Google Access Token. You can use it to access the Google API.
     //     // var token = result.credential.accessToken;
@@ -55,6 +65,7 @@ export class LoginPage implements OnInit {
     //   }
     //   // The signed-in user info.
     //   // var user = result.user;
+    //   this.router.navigate(["/map"]);
     // }).catch(function(error) {
     //   // Handle Errors here.
     //   var errorCode = error.code;
