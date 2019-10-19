@@ -28,6 +28,10 @@ export class UserService {
         return this.user;
     }
 
+    getUserDoc(uid: string){
+        return this.afs.doc<Gamer>('gamers/' + uid);
+    }
+
     getGamerDoc(){
         return this.gamerDoc;
     }
@@ -35,7 +39,10 @@ export class UserService {
         return this.gamer;
     }
 
- 
+    getGameInfoDoc(game: string){
+
+        return this.gamerDoc.collection('gameInfo').doc(game);
+    }
 
     private gamersCollection: AngularFirestoreCollection<Gamer>;
     private gamers: Observable<Gamer[]>;
@@ -86,9 +93,7 @@ export class UserService {
         })
     }
 
-    getUserDoc(uid: string){
-        return this.afs.doc<Gamer>('gamers/' + uid);
-    }
+    
     
     createUser(user) {
         this.user = user;
@@ -202,6 +207,20 @@ export class UserService {
 
 
 
+    }
+    updateGameInfo(gameInfo) {
+        // let gameInfo = {
+        //                 gameName: 'League ',
+        //                 server: 'TW',
+        //                 gameId: 't0912398031',
+        //                 experience: 7,
+        //                 rank: 'master',
+        //                 role: ['mid','adc'],
+    
+        //             };
+
+        this.gamerDoc.collection('gameInfo').doc('League').set(gameInfo)
+        console.log('update success')
     }
 
     updateUserLocation() {

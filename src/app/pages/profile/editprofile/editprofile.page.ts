@@ -5,6 +5,9 @@ import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 import { AlertController } from '@ionic/angular';
+import { SharingService } from 'src/app/service/sharing.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,6 +26,26 @@ export class EditprofilePage implements OnInit {
   gender;
 
   games: Array<Object>;
+
+  getimg(game){
+    let text = ''
+    switch(game) {
+      case "League of Legends":
+        text = "assets/icon/Leagueicon.png";
+        break;
+      case "Arena of Valor":
+        text = 'assets/icon/Aov.jpg';
+        break;
+      case "Apple":
+        text = "How you like them apples?";
+        break;
+      default:
+        text = './assets/icon/favicon.png';
+  }
+    return text
+  }
+  
+  
   
   onChangeHandler($event) {
     this.gender = $event.target.value;
@@ -32,18 +55,14 @@ export class EditprofilePage implements OnInit {
   
 
   
-  constructor(private userService: UserService,private alertController: AlertController) { 
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private alertController: AlertController,
+    private sharingService: SharingService
+    ) { 
     this.gamerDoc = this.userService.getGamerDoc();
     this.gamer = this.gamerDoc.valueChanges();
-    // this.gamer = this.userService.getGamer();
-    // this.g = this.userService.getG();
-
-    // this.games = this.g.games;
-    // this.gender = this.g.gender;
-
-    // this.displayName = this.g.displayName;
-    // this.email = this.g.email;
-    // this.phone = this.g.phone;
 
     this.gamer.subscribe((gamer: Gamer)=>{
       // self.g = gamer;
@@ -139,5 +158,11 @@ export class EditprofilePage implements OnInit {
     await alert.present();
     let result = await alert.onDidDismiss();
     // console.log(result);
+  }
+
+  editGameInfo(game){
+    // console.log(game);
+    this.sharingService.saveData(game);
+    this.router.navigate(["/editgameinfo"]);
   }
 }

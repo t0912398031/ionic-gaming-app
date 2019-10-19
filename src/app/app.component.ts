@@ -69,6 +69,16 @@ export class AppComponent {
       title: 'userprofile',
       url: '/userprofile/TMDz1cVAM7QagTPsU5aIJtlRzs52',
       icon: 'settings'
+    },
+    {
+      title: 'Home',
+      url: '/home',
+      icon: 'home'
+    },
+    {
+      title: 'List',
+      url: '/list',
+      icon: 'list'
     }
   ];
   
@@ -129,7 +139,7 @@ export class AppComponent {
 
           this.userService.createUser(user);  
           this.userService.updateUserLocation();
-      
+          
         }
         else {
           this.u = false;

@@ -49,7 +49,19 @@ export class LoginPage implements OnInit {
     });
 
     // To sign in by redirecting to the sign-in page, call signInWithRedirect
-    firebase.auth().signInWithRedirect(provider);
+    firebase.auth().signInWithRedirect(provider)
+    // .then(function() {
+    // firebase.auth().getRedirectResult().then(function(result) {
+    // var token = (<any>result).credential.accessToken;
+    // if (result.user) {
+    //   this.router.navigate(["/profile"]);
+    // };
+    // var user = result.user;
+    // }).catch(function(error) {
+    // var errorCode = error.code;
+    // var errorMessage = error.message;
+    // });
+    // });
 
    
     // firebase.auth().getRedirectResult().then(function(result) {

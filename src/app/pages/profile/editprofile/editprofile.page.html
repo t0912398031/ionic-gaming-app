@@ -54,15 +54,39 @@
 
 
   
+
   <ion-list>
     <ion-list-header>
       <ion-label>Games</ion-label>
     </ion-list-header>
 
+    
+
+    
     <ion-item *ngFor="let game of games">
       <ion-label>{{game.name}}</ion-label>
       <ion-checkbox slot="start"  [(ngModel)]="game.isChecked"></ion-checkbox>
     </ion-item>
+    
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>GameInfo</ion-label>
+    </ion-list-header>
+
+    
+  <ng-container *ngFor="let game of games">
+    <ion-item *ngIf="game.isChecked" (click) ="editGameInfo(game)" href="javascript:void(0)">
+
+    <ion-thumbnail slot="start">
+      <img [src]="getimg(game.name)">
+    </ion-thumbnail>
+      <ion-label>{{game.name}}</ion-label>
+      <ion-icon name="create"></ion-icon>   
+    </ion-item>
+  </ng-container>  
+
     
   </ion-list>
 

@@ -5,12 +5,20 @@ import { Injectable, } from '@angular/core';
 export class SharingService {
     constructor() {}
 
+    private data: any;
     private user: any;
     private account = [];
     private currentAcc: any;
 
     private googleToken: any;
 
+    saveData(data){
+        this.data = data;
+    }
+
+    fetchData(){
+        return this.data;
+    }
 
     save(user) {
         this.user = user;

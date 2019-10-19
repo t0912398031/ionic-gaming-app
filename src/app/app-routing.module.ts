@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'map', loadChildren: './pages/map/map.module#MapPageModule', canActivate: [AuthGuardService] },
   { path: 'editprofile', loadChildren: './pages/profile/editprofile/editprofile.module#EditprofilePageModule' },
   { path: 'userprofile/:id', loadChildren: './pages/userprofile/userprofile.module#UserprofilePageModule' },
-  { path: 'gameinfo', loadChildren: './pages/userprofile/gameinfo/gameinfo.module#GameinfoPageModule',canActivate: [AuthGuardService] }
+  { path: 'gameinfo', loadChildren: './pages/userprofile/gameinfo/gameinfo.module#GameinfoPageModule',canActivate: [AuthGuardService] },  { path: 'editgameinfo', loadChildren: './pages/profile/editgameinfo/editgameinfo.module#EditgameinfoPageModule' }
+
 ];
 
 @NgModule({

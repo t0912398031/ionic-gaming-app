@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>editgameinfo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button color="primary" (click) ="update()">update</ion-button>
+<ion-list>
+  <!-- <div *ngFor="let key of objectKeys(gameInfo)">
+    <ion-item >     
+      <div class="capitalize">
+          {{key}}
+      </div>
+      
+      <div class="item-note" slot="end">
+        {{gameInfo[key]}}
+      </div>
+    </ion-item>
+  </div> -->
+
+  
+  <ion-item>
+    <ion-label position="stacked">Game ID</ion-label>
+    <ion-input clearInput  placeholder="ex. faker" [(ngModel)]="gameId"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Rank</ion-label>
+    <ion-select [(ngModel)]="rank">
+      <ion-select-option value="master">Master</ion-select-option>
+      <ion-select-option value="diamond">Diamond</ion-select-option>
+      <ion-select-option value="platnium">Platnium</ion-select-option>
+      <ion-select-option value="gold">Gold</ion-select-option>
+      <ion-select-option value="silver">Silver</ion-select-option>
+      <ion-select-option value="bronze">Bronze</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-select multiple [(ngModel)]="role">
+        <ion-select-option value="top">Top</ion-select-option>
+        <ion-select-option value="jg">Jungle</ion-select-option>
+        <ion-select-option value="mid">Mid</ion-select-option>
+        <ion-select-option value="sup">Support</ion-select-option>
+        <ion-select-option value="adc">Adc</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Server</ion-label>
+      <ion-select [(ngModel)]="server">
+        <ion-select-option value="NA">North America</ion-select-option>
+        <ion-select-option value="TW">Taiwan</ion-select-option>
+        <ion-select-option value="CN">China</ion-select-option>
+        <ion-select-option value="EU">Europe </ion-select-option>
+        <ion-select-option value="KR">Korea</ion-select-option>
+      </ion-select>
+    </ion-item>
+  <!-- <ion-item *ngFor="let role of roles">
+      <ion-label>{{role.name}}</ion-label>
+      <ion-checkbox slot="start"  [(ngModel)]="role.isChecked"></ion-checkbox>
+  </ion-item> -->
+
+  <ion-item>
+    <ion-label>Year of Playing</ion-label>
+    <ion-range min="0" max="10" snaps pin [(ngModel)]="experience"> 
+      <ion-label slot="start">0</ion-label>
+      <ion-label slot="end">10</ion-label>
+    </ion-range>
+  </ion-item>
+
+  <!-- <ion-item>
+    <ion-label position="stacked">Email</ion-label>
+    <ion-input clearInput  placeholder="ex. 7" [(ngModel)]="experience"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Phone</ion-label>
+    <ion-input clearInput  placeholder="ex. 1234567890" [(ngModel)]="phone"></ion-input>
+  </ion-item> -->
+  
+</ion-list>
+</ion-content>
