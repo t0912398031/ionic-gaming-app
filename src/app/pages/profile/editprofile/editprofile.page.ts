@@ -85,28 +85,28 @@ export class EditprofilePage implements OnInit {
     
   }
 
-  update(){
-    let gameInfo = {
-      gameName: 'League of Legends',
-      server: 'NA',
-      gameId: 't0912398031',
-      experience: 2,
-      rank: 'platnium',
-      role: ['mid','adc'],
+  // update(){
+  //   let gameInfo = {
+  //     gameName: 'League of Legends',
+  //     server: 'NA',
+  //     gameId: 't0912398031',
+  //     experience: 2,
+  //     rank: 'platnium',
+  //     role: ['mid','adc'],
 
-    };
+  //   };
 
 
-    this.gamerDoc.update({
-      // gameInfo: gameInfo
-    })
-    .catch(err => {
-        console.log("update user fail" );
-    });
-    console.log("update user suceed" );
+  //   this.gamerDoc.update({
+  //     // gameInfo: gameInfo
+  //   })
+  //   .catch(err => {
+  //       console.log("update user fail" );
+  //   });
+  //   console.log("update user suceed" );
 
-    // this.userService.updateUser();
-  }
+  //   // this.userService.updateUser();
+  // }
 
   updateProfile(){
 
@@ -162,7 +162,7 @@ export class EditprofilePage implements OnInit {
 
   editGameInfo(game){
     // console.log(game);
-    this.sharingService.saveData(game);
+    this.sharingService.saveData(game.name);
     this.router.navigate(["/editgameinfo"]);
   }
 }

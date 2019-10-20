@@ -4,6 +4,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 import { LocationTracker } from 'src/providers/location-tracker';
 import { Location } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -11,12 +12,19 @@ export class AuthGuardService implements CanActivate {
     constructor(private router: Router,
       private location: Location,
       private locationTracker: LocationTracker,
-      private fireAuth: AngularFireAuth) {
+      private fireAuth: AngularFireAuth,
+      private userService: UserService
+      ) {
 
     }
 
     canActivate(route: ActivatedRouteSnapshot,): boolean {
 
+        if(!this.userService.getCurrentUser){
+          this.router.navigate(['']);
+          console.log("no user");
+          return false;
+        }
         // console.log("route: " + route);
         if(route.url.toString()=='map'){
             if(!this.locationTracker.tracking){
@@ -46,30 +54,19 @@ export class AuthGuardService implements CanActivate {
         // let authInfo = {
         //     authenticated: false
         // };
-        this.fireAuth.auth.onAuthStateChanged(user => {
-        // firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-              console.log("user exist");
-            }
-            else {
-              console.log("no user found");
-              this.router.navigate(['login']);
-              return false;
+        // this.fireAuth.auth.onAuthStateChanged(user => {
+        // // firebase.auth().onAuthStateChanged(user => {
+        //     if (user) {
+        //       console.log("user exist");
+        //     }
+        //     else {
+        //       console.log("no user found");
+        //       this.router.navigate(['login']);
+        //       return false;
               
-            }
-          })
+        //     }
+        //   })
           return true;
-
-
-
-
-
-        // if (!authInfo.authenticated) {
-        //     this.router.navigate(['login']);
-        //     return false;
-        // }
-
-        // return true;
 
     }
 

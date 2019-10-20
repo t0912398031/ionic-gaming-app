@@ -26,7 +26,7 @@ export class LocationTracker {
   }
 
   getLongitude(){
-    return this. longitude;
+    return this.longitude;
   }
 
   constructor(

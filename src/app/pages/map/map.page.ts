@@ -58,13 +58,13 @@ export class MapPage implements OnInit{
     
     
       // });
-
-  
       this.latitude = this.locationTracker.getLatitude();
       this.longitude = this.locationTracker.getLongitude();
-  
-      // this.user = this.sharingService.fetch();
-      // console.log(this.user)
+      this.locationTracker.getWatch().subscribe(position => {
+        this.latitude = position.coords.latitude;
+        this.longitude = position.coords.longitude;
+    });
+
       this.label = "Me"
   
   

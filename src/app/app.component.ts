@@ -124,28 +124,23 @@ export class AppComponent {
       //   // fallback to browser APIs 
       // }
 
-   
-      // firebaseConfig
-      // firebase.initializeApp(environment.firebaseConfig);
-      // firebase.auth().onAuthStateChanged(user => {
       this.fireAuth.auth.onAuthStateChanged(user => {
         if (user) {
           this.u = true;
 
-          console.log("user exist");
-          this.router.navigate(["/profile"]);
+          // console.log("user exist");
 
-          this.locationTracker.startTrackingWeb();
+          // this.locationTracker.startTrackingWeb();
 
-          this.userService.createUser(user);  
-          this.userService.updateUserLocation();
-          
+          // this.userService.createUser(user);  
+          // this.userService.updateUserLocation();
+          // this.router.navigate(["/profile"]);
         }
         else {
           this.u = false;
 
-          console.log("no user found");
-          this.router.navigate(["/login"]);
+          // console.log("no user found");
+          // this.router.navigate(["/login"]);
           // this.splashScreen.hide();
         }
       })

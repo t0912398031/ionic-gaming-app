@@ -18,13 +18,14 @@ const routes: Routes = [
   },
   { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
-  { path: 'test', loadChildren: './pages/test/test.module#TestPageModule' },
-  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule' },
+  { path: 'test', loadChildren: './pages/test/test.module#TestPageModule', canActivate: [AuthGuardService] },
+  { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule', canActivate: [AuthGuardService] },
   { path: 'settings', loadChildren: './pages/settings/settings.module#SettingsPageModule' },
   { path: 'map', loadChildren: './pages/map/map.module#MapPageModule', canActivate: [AuthGuardService] },
-  { path: 'editprofile', loadChildren: './pages/profile/editprofile/editprofile.module#EditprofilePageModule' },
-  { path: 'userprofile/:id', loadChildren: './pages/userprofile/userprofile.module#UserprofilePageModule' },
-  { path: 'gameinfo', loadChildren: './pages/userprofile/gameinfo/gameinfo.module#GameinfoPageModule',canActivate: [AuthGuardService] },  { path: 'editgameinfo', loadChildren: './pages/profile/editgameinfo/editgameinfo.module#EditgameinfoPageModule' }
+  { path: 'editprofile', loadChildren: './pages/profile/editprofile/editprofile.module#EditprofilePageModule', canActivate: [AuthGuardService] },
+  { path: 'userprofile/:id', loadChildren: './pages/userprofile/userprofile.module#UserprofilePageModule', canActivate: [AuthGuardService] },
+  { path: 'userprofile/:id/gameinfo', loadChildren: './pages/userprofile/gameinfo/gameinfo.module#GameinfoPageModule',canActivate: [AuthGuardService] },
+  { path: 'editgameinfo', loadChildren: './pages/profile/editgameinfo/editgameinfo.module#EditgameinfoPageModule', canActivate: [AuthGuardService] }
 
 ];
 

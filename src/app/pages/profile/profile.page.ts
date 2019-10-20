@@ -33,7 +33,8 @@ export class ProfilePage implements OnInit {
   u: any
   data: any;
   watch: any;
-  gender;
+  gender = 'male';
+  games;
 
   googleLinked = false;
   fbLinked = false;
@@ -45,6 +46,8 @@ export class ProfilePage implements OnInit {
 
   private cardContent = '7 years League of Legends experience, 1 year Arena of Valor. Ranked top 1 NA in season 11';
   private isEdit = false;
+  isEditable = false;
+  description = '123'
 
   private channelId = 'UCphmcGUje3ErRaZZuJo-4wQ';
   channelURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/live_stream?channel=' + this.channelId);
@@ -75,19 +78,16 @@ export class ProfilePage implements OnInit {
     private sanitizer: DomSanitizer
   ) { 
     this.user = this.userService.getCurrentUser();
-    
 
-    this.itemDoc = afs.doc<User>('users/aturing');
-    this.item = this.itemDoc.valueChanges();
-
-    this.itemsCollection = afs.collection<Gamer>('gamers');
-    this.items = this.itemsCollection.valueChanges();
+    // this.itemsCollection = afs.collection<Gamer>('gamers');
+    // this.items = this.itemsCollection.valueChanges();
 
     this.gamerDoc = this.userService.getGamerDoc();
     this.gamer = this.gamerDoc.valueChanges();
 
     this.gamer.subscribe((gamer: Gamer)=>{
       this.gender = gamer.gender;
+      this.games = gamer.games;
       
     })
     
@@ -151,80 +151,6 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
     this.getRedirectGoogle();
-    
-    
-    
-
-    let self = this;
-    this.fireAuth.auth.onAuthStateChanged(user => {
-      if (user) {
-        self.user = user;
-        
-        // console.log(user.providerData)
-        user.providerData.forEach((e)=>{
-          if (e.providerId=="google.com") {
-            self.googleLinked = true;
-          } 
-          if (e.providerId=="facebook.com") {
-            self.fbLinked = true;
-          } 
-        })
-        
-
-        // this.userService.createUser(user);  
-
-        // this.watch = this.locationTracker.getPosition();
-        // this.watch.subscribe(position => {
-        //   self.latitude = position.coords.latitude;
-        //   self.longitude = position.coords.longitude;
-        //   // console.log(position.coords.latitude + ' ' + position.coords.longitude);
-        //   });
-        
-          
-
-    // this.afs.firestore.doc('/gamers/' + user.uid).get()
-    // // afs.firestore.collection('users').doc('aturin').get()
-    //   .then(docSnapshot => {
-    //     if (docSnapshot.exists) {
-    //       console.log("doc exist")
-    //     } else {
-    //       console.log("doc not exist")
-
-    //       let gameData: Array<string> = ['League of Legends', 'Arena of Valor', 'PUBG']
-
-    //         let gamer: Gamer = {
-    //           uid: user.uid,
-    //           displayName: user.displayName,
-    //           first: null,
-    //           last: null,
-    //           middle: null,
-    //           email: user.email,
-    //           phone: user.phoneNumber,
-    //           born: 1,
-    //           games: gameData,
-    //           location: new firebase.firestore.GeoPoint( self.latitude, self.longitude)
-    //           };
-    //         // console.log(gamer)
-    //       self.itemsCollection.doc(user.uid).set(gamer);
-
-    //     }
-    //   });
-
-    // user.providerData.forEach(function (profile) {
-    //   console.log("Sign-in provider: " + profile.providerId);
-    //   console.log("  Provider-specific UID: " + profile.uid);
-    //   console.log("  Name: " + profile.displayName);
-    //   console.log("  Email: " + profile.email);
-    //   console.log("  Photo URL: " + profile.photoURL);
-    // });
-     
-      }
-      else {
-        this.router.navigate(["/login"]);
-      }
-    })
-    
-    
   }
 
   getRedirectGoogle(){
@@ -279,43 +205,6 @@ export class ProfilePage implements OnInit {
     })
   }
 
-  linkFb(){
-    // Creates the provider object.
-    var provider = new firebase.auth.FacebookAuthProvider();
-    // You can add additional scopes to the provider:
-    // provider.addScope('email');
-    // provider.addScope('user_friends');
-
-    // auth.currentUser.linkWithRedirect(provider);
-    // Link with popup:
-
-    // firebase.auth().currentUser.linkWithPopup(provider).then(function(result) {
-    this.fireAuth.auth.currentUser.linkWithPopup(provider).then(function(result) {
-      console.log("successfully linked");
-      // The firebase.User instance:
-      var user = result.user;
-      // The Facebook firebase.auth.AuthCredential containing the Facebook
-      // access token:
-      var credential = result.credential;
-    }, function(error) {
-      // An error happened.
-    });
-
-    // firebase.auth().getRedirectResult().then(function(result) {
-    //   if (result.credential) {
-        
-    //     // Accounts successfully linked.
-    //     var credential = result.credential;
-    //     var user = result.user;
-    //     // ...
-    //   }
-    // }).catch(function(error) {
-    //   // Handle Errors here.
-    //   // ...
-    // });
-  }
-  
-
 
   get() {
     var ob = this.getUsers();
@@ -335,29 +224,28 @@ export class ProfilePage implements OnInit {
   }
 
 
-  testupdate(){    
-    this.itemDoc.update({
-      last: this.data
-    });
-    // console.log(JSON.stringify(this.itemDoc));
-
-    
-  // let getDoc = this.itemDoc.get().toPromise()
-  // .then(doc => {
-  //   if (!doc.exists) {
-  //     console.log('No such document!');
-  //   } else {
-  //     console.log('Document data:', doc.data());
-  //   }
-  // })
-  // .catch(err => {
-  //   console.log('Error getting document', err);
-  // });
-    this.item.subscribe((user: User) => {
-      console.log(user);
-    })
-
+  getimg(game){
+    let text = ''
+    switch(game) {
+      case "League of Legends":
+        text = "assets/icon/Leagueicon.png";
+        break;
+      case "Arena of Valor":
+        text = 'assets/icon/Aov.jpg';
+        break;
+      case "Apple":
+        text = "How you like them apples?";
+        break;
+      default:
+        text = './assets/icon/favicon.png';
+  }
+    return text
   }
 
+  editable(){
+    this.isEditable = !this.isEditable;
+    console.log(this.isEditable)
+    // return !this.isEditable
+  }
   
 }

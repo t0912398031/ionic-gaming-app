@@ -56,6 +56,22 @@
         {{(gamer | async)?.city}}
       </div>
     </ion-item>
+
+
+    <ion-item-group>
+        <ion-item-divider>
+          <ion-label>Games</ion-label>
+        </ion-item-divider>
+
+        <div *ngFor="let game of games">
+          <ion-item *ngIf="game.isChecked">
+            <ion-thumbnail slot="start">
+                <img [src]="getimg(game.name)">
+              </ion-thumbnail>
+            <ion-label>{{game.name}}</ion-label>
+          </ion-item>
+        </div>
+      </ion-item-group>
   </ion-list>
   
 
@@ -64,15 +80,26 @@
 
  <ion-card>
   <ion-card-header>
-    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    <ion-card-title>Card Title</ion-card-title>
+    <!-- <ion-card-subtitle>Card Subtitle</ion-card-subtitle> -->
+    <ion-card-title>Intro</ion-card-title>
     
   </ion-card-header>
-
+   
   <ion-card-content>
-    Keep close to Nature's heart... and break clear away, once in awhile,
-    and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      <ion-item *ngIf="isEditable">
+        <ion-icon id="description" slot="end" name="checkmark" (click) ="editable()"></ion-icon>  
+        <!-- <ion-textarea placeholder="Add a short description to tell people more about yourself." [readonly]="!isEditable"></ion-textarea> -->
+        <ion-input placeholder="Add a short description to tell people more about yourself." [(ngModel)]="description"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="!isEditable">
+        <ion-icon id="description" slot="end" name="create" (click) ="editable()"></ion-icon>  
+        <!-- <ion-textarea placeholder="Add a short description to tell people more about yourself." [readonly]="!isEditable"></ion-textarea> -->
+        <ion-input placeholder="Add a short description to tell people more about yourself." [(ngModel)]="description"readonly></ion-input>
+      </ion-item>
+      <!-- Add a short description to tell people more about yourself. -->
   </ion-card-content>
+  
 </ion-card>
 
 <ion-card>

@@ -45,16 +45,6 @@ export class UserprofilePage implements OnInit, OnDestroy {
       // self.g = gamer;
       this.games = gamer.games;
       this.gender = gamer.gender;
-
-      // gamer.games.forEach(e=>{
-      //   if(this.games.ischecked){
-      //     this.games.push((<any>e).name)
-      //   }
-      // }
-        
-        
-      // )
-      
     })
     
   }
@@ -64,12 +54,17 @@ export class UserprofilePage implements OnInit, OnDestroy {
   }
 
   onViewDetails(game){
+    let gameInfoDoc = this.userService.getGameInfoDocByUser(this.id, game.name)
+    let gameInfo = gameInfoDoc.valueChanges();
+    if(gameInfoDoc){
+      console.log(gameInfoDoc)
+    }
     // console.log(id)
     // this.router.navigate(['/gameinfo', name]);
     if(!game.gameInfo){
       this.presentToast();
     }
-    this.router.navigate(['/gameinfo'], {state: game});
+    this.router.navigate(['userprofile/' + this.id + '/gameinfo'], {state: game});
   
   }
 
